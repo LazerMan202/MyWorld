@@ -4,1953 +4,922 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyWorld 1.1</title>
+<title>MyWorld</title>
 
 <style>
-:root{
-  --bg:#f4f6f9;
-  --panel:#ffffff;
-  --panel2:#f8f9fb;
-  --text:#18212b;
-  --muted:#6d7885;
-  --border:#e0e5eb;
-  --accent:#4d7cff;
-  --accent2:#6d5ce7;
-  --hover:#eef2ff;
-  --danger:#e05252;
-  --shadow:0 8px 25px rgba(0,0,0,.07);
-}
-
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,Helvetica,sans-serif;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
+    background:#f4f6f8;
+    color:#222;
+    min-height:100vh;
+    transition:.2s;
 }
 
 body.dark{
-  --bg:#10141b;
-  --panel:#181e27;
-  --panel2:#202732;
-  --text:#f1f4f8;
-  --muted:#9ca8b5;
-  --border:#303946;
-  --hover:#252d3a;
-  --shadow:0 8px 25px rgba(0,0,0,.25);
-}
-
-button,
-input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
+    background:#15171a;
+    color:#eee;
 }
 
 .sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  width:245px;
-  background:var(--panel);
-  border-right:1px solid var(--border);
-  padding:22px 15px;
-  z-index:10;
+    position:fixed;
+    left:0;
+    top:0;
+    width:245px;
+    height:100vh;
+    background:#ffffff;
+    border-right:1px solid #ddd;
+    padding:20px;
+    z-index:10;
+}
+
+.dark .sidebar{
+    background:#1e2125;
+    border-color:#333;
 }
 
 .logo{
-  font-size:25px;
-  font-weight:800;
-  padding:5px 12px 25px;
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:30px;
 }
 
 .logo span{
-  font-size:27px;
+    margin-right:7px;
 }
 
 .nav{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
 }
 
 .nav button{
-  border:0;
-  background:transparent;
-  color:var(--text);
-  text-align:left;
-  padding:12px 14px;
-  border-radius:10px;
-  font-size:15px;
+    border:none;
+    background:transparent;
+    text-align:left;
+    padding:12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    color:inherit;
 }
 
 .nav button:hover,
 .nav button.active{
-  background:var(--hover);
-  color:var(--accent);
+    background:#e9edf2;
+}
+
+.dark .nav button:hover,
+.dark .nav button.active{
+    background:#30343a;
 }
 
 .sidebar-bottom{
-  position:absolute;
-  left:15px;
-  right:15px;
-  bottom:20px;
-}
-
-.user-mini{
-  background:var(--panel2);
-  border:1px solid var(--border);
-  padding:11px;
-  border-radius:12px;
-  margin-bottom:10px;
-  overflow:hidden;
-}
-
-.user-mini-name{
-  font-weight:bold;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.user-mini-email{
-  font-size:12px;
-  color:var(--muted);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+    position:absolute;
+    bottom:20px;
+    left:20px;
+    right:20px;
 }
 
 .main{
-  margin-left:245px;
-  padding:35px;
-  max-width:1400px;
+    margin-left:245px;
+    padding:30px;
 }
 
-.page{
-  display:none;
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
 }
 
-.page.active{
-  display:block;
+.menu-btn{
+    display:none;
+    border:none;
+    background:#222;
+    color:white;
+    padding:10px 13px;
+    border-radius:8px;
+    cursor:pointer;
 }
 
-.hero{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:white;
-  border-radius:18px;
-  padding:30px;
-  margin-bottom:25px;
-  box-shadow:var(--shadow);
-  position:relative;
-  overflow:hidden;
+.dark .menu-btn{
+    background:#444;
 }
 
-.hero h1{
-  font-size:31px;
-  margin-bottom:8px;
-}
-
-.hero p{
-  opacity:.9;
-  font-size:15px;
-}
-
-.hero-icon{
-  position:absolute;
-  right:35px;
-  top:22px;
-  font-size:75px;
-  opacity:.25;
-}
-
-.section-title{
-  font-size:20px;
-  margin-bottom:15px;
-}
-
-.apps{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-}
-
-.card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:20px;
-  box-shadow:var(--shadow);
-}
-
-.app-card{
-  transition:.18s;
-}
-
-.app-card:hover{
-  transform:translateY(-3px);
-}
-
-.app-icon{
-  font-size:36px;
-  margin-bottom:12px;
-}
-
-.app-card h3{
-  margin-bottom:7px;
-}
-
-.app-card p{
-  color:var(--muted);
-  font-size:14px;
-  min-height:40px;
-}
-
-.primary{
-  border:0;
-  background:var(--accent);
-  color:white;
-  padding:10px 15px;
-  border-radius:9px;
-  margin-top:15px;
-  font-weight:bold;
-}
-
-.primary:hover{
-  opacity:.9;
-}
-
-.secondary{
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:var(--text);
-  padding:10px 15px;
-  border-radius:9px;
-}
-
-.danger{
-  background:var(--danger);
-  color:white;
-  border:0;
-  padding:10px 15px;
-  border-radius:9px;
-}
-
-.activity-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.activity-item{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:14px;
-}
-
-.activity-item strong{
-  display:block;
-  margin-bottom:4px;
-}
-
-.activity-time{
-  font-size:12px;
-  color:var(--muted);
-}
-
-.profile-box{
-  display:grid;
-  grid-template-columns:120px 1fr;
-  gap:25px;
-  align-items:center;
+.user-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
 .avatar{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:45px;
-  font-weight:bold;
-}
-
-.profile-info h2{
-  margin-bottom:5px;
-}
-
-.profile-info p{
-  color:var(--muted);
-  margin-bottom:7px;
-}
-
-.setting-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.setting-row:last-child{
-  border-bottom:0;
-}
-
-.setting-description{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:4px;
-}
-
-.toggle{
-  width:48px;
-  height:26px;
-  border-radius:20px;
-  border:0;
-  background:#aaa;
-  position:relative;
-}
-
-.toggle::after{
-  content:"";
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background:white;
-  position:absolute;
-  top:3px;
-  left:4px;
-  transition:.2s;
-}
-
-.toggle.on{
-  background:var(--accent);
-}
-
-.toggle.on::after{
-  left:24px;
-}
-
-.auth-screen{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:var(--bg);
-}
-
-.auth-box{
-  width:100%;
-  max-width:430px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:32px;
-  box-shadow:var(--shadow);
-}
-
-.auth-logo{
-  text-align:center;
-  font-size:30px;
-  font-weight:800;
-  margin-bottom:7px;
-}
-
-.auth-subtitle{
-  text-align:center;
-  color:var(--muted);
-  margin-bottom:25px;
-}
-
-.auth-tabs{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:5px;
-  background:var(--panel2);
-  padding:5px;
-  border-radius:10px;
-  margin-bottom:20px;
-}
-
-.auth-tabs button{
-  border:0;
-  padding:10px;
-  border-radius:7px;
-  background:transparent;
-  color:var(--text);
-}
-
-.auth-tabs button.active{
-  background:var(--panel);
-  box-shadow:0 2px 7px rgba(0,0,0,.08);
-  color:var(--accent);
-  font-weight:bold;
-}
-
-.form-group{
-  margin-bottom:15px;
-}
-
-.form-group label{
-  display:block;
-  font-size:13px;
-  font-weight:bold;
-  margin-bottom:6px;
-}
-
-.form-group input{
-  width:100%;
-  padding:12px;
-  border-radius:9px;
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:var(--text);
-  outline:none;
-}
-
-.form-group input:focus{
-  border-color:var(--accent);
-}
-
-.auth-submit{
-  width:100%;
-  padding:12px;
-  margin-top:5px;
-  border:0;
-  border-radius:9px;
-  background:var(--accent);
-  color:white;
-  font-weight:bold;
-}
-
-.auth-message{
-  display:none;
-  margin-top:15px;
-  padding:10px;
-  border-radius:9px;
-  font-size:13px;
-}
-
-.auth-message.show{
-  display:block;
-}
-
-.auth-message.error{
-  background:#ffe8e8;
-  color:#a72e2e;
-}
-
-.auth-message.success{
-  background:#e6f8ec;
-  color:#26733b;
-}
-
-.dark .auth-message.error{
-  background:#3a2024;
-  color:#ffaaaa;
-}
-
-.dark .auth-message.success{
-  background:#193326;
-  color:#9ee0b0;
-}
-
-.loading{
-  position:fixed;
-  inset:0;
-  background:var(--bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-}
-
-.loading-inner{
-  text-align:center;
-}
-
-.spinner{
-  width:38px;
-  height:38px;
-  border:4px solid var(--border);
-  border-top-color:var(--accent);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  margin:auto auto 12px;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-.mobile-header{
-  display:none;
-}
-
-.empty{
-  text-align:center;
-  color:var(--muted);
-  padding:30px;
-}
-
-.account-status{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  font-size:13px;
-  color:#3aa66a;
-  margin-top:10px;
-}
-
-.online-dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#3aa66a;
-}
-
-@media(max-width:800px){
-  .sidebar{
-    transform:translateX(-100%);
-    transition:.2s;
-  }
-
-  .sidebar.open{
-    transform:translateX(0);
-  }
-
-  .main{
-    margin-left:0;
-    padding:20px;
-    padding-top:75px;
-  }
-
-  .mobile-header{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#4d7cff;
+    color:white;
     display:flex;
-    position:fixed;
-    left:0;
-    right:0;
-    top:0;
-    height:60px;
-    background:var(--panel);
-    border-bottom:1px solid var(--border);
     align-items:center;
-    padding:0 15px;
-    z-index:9;
-  }
-
-  .menu-btn{
-    border:0;
-    background:transparent;
-    font-size:25px;
-    color:var(--text);
-    margin-right:12px;
-  }
-
-  .mobile-title{
+    justify-content:center;
     font-weight:bold;
-    font-size:19px;
-  }
-
-  .hero h1{
-    font-size:25px;
-    max-width:75%;
-  }
-
-  .hero-icon{
-    right:10px;
-    top:28px;
-  }
-
-  .profile-box{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-
-  .avatar{
-    margin:auto;
-  }
 }
 
-@media(max-width:450px){
-  .main{
-    padding:15px;
-    padding-top:70px;
-  }
+.hero{
+    background:linear-gradient(135deg,#4d7cff,#7257e8);
+    color:white;
+    border-radius:18px;
+    padding:35px;
+    margin-bottom:25px;
+}
 
-  .hero{
+.hero h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    opacity:.9;
+}
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
     padding:22px;
-  }
+    border:1px solid #ddd;
+    transition:.2s;
+}
 
-  .apps{
-    grid-template-columns:1fr;
-  }
+.dark .card{
+    background:#1e2125;
+    border-color:#333;
+}
 
-  .auth-box{
-    padding:24px;
-  }
+.card:hover{
+    transform:translateY(-2px);
+}
+
+.card-icon{
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.card h3{
+    margin-bottom:7px;
+}
+
+.card p{
+    color:#666;
+    font-size:14px;
+    margin-bottom:18px;
+}
+
+.dark .card p{
+    color:#aaa;
+}
+
+.card button{
+    border:none;
+    background:#4d7cff;
+    color:white;
+    padding:10px 15px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.card button:hover{
+    opacity:.9;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:white;
+    border:1px solid #ddd;
+    padding:20px;
+    border-radius:14px;
+}
+
+.dark .stat{
+    background:#1e2125;
+    border-color:#333;
+}
+
+.stat-number{
+    font-size:27px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.setting{
+    background:white;
+    border:1px solid #ddd;
+    padding:18px;
+    border-radius:12px;
+    margin-bottom:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.dark .setting{
+    background:#1e2125;
+    border-color:#333;
+}
+
+.setting button{
+    border:none;
+    background:#4d7cff;
+    color:white;
+    padding:9px 14px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.login-screen{
+    position:fixed;
+    inset:0;
+    background:#f4f6f8;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:100;
+}
+
+.login-box{
+    width:min(400px,90%);
+    background:white;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+}
+
+.login-box h1{
+    margin-bottom:8px;
+}
+
+.login-box p{
+    color:#666;
+    margin-bottom:20px;
+}
+
+.login-box input{
+    width:100%;
+    padding:13px;
+    margin-bottom:12px;
+    border:1px solid #ccc;
+    border-radius:9px;
+    font-size:15px;
+}
+
+.login-box button{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:9px;
+    background:#4d7cff;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.login-box .secondary{
+    background:#e9edf2;
+    color:#222;
+}
+
+.error{
+    color:#d33;
+    font-size:14px;
+    margin-top:10px;
+    min-height:18px;
+}
+
+.hidden{
+    display:none !important;
+}
+
+@media(max-width:700px){
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.2s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+        padding:20px;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero h1{
+        font-size:26px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Loading -->
-<div class="loading" id="loadingScreen">
-  <div class="loading-inner">
-    <div class="spinner"></div>
-    <strong>Loading MyWorld...</strong>
-  </div>
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-box">
+        <h1>🌎 MyWorld</h1>
+        <p>Sign in to your MyWorld account.</p>
+
+        <input id="email" type="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+        <input id="username" type="text" placeholder="Username (for new accounts)">
+
+        <button onclick="login()">Log In</button>
+        <button class="secondary" onclick="signup()">Create Account</button>
+
+        <div class="error" id="loginError"></div>
+    </div>
 </div>
 
-<!-- Authentication -->
-<div class="auth-screen" id="authScreen" style="display:none;">
-  <div class="auth-box">
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
 
-    <div class="auth-logo">🌎 MyWorld</div>
-    <div class="auth-subtitle">Your personal home for all your web projects.</div>
-
-    <div class="auth-tabs">
-      <button id="loginTab" class="active" onclick="showAuthMode('login')">
-        Login
-      </button>
-
-      <button id="signupTab" onclick="showAuthMode('signup')">
-        Create Account
-      </button>
+    <div class="logo">
+        <span>🌎</span>MyWorld
     </div>
 
-    <form id="authForm">
-
-      <div class="form-group" id="usernameGroup" style="display:none;">
-        <label for="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          maxlength="24"
-          placeholder="Choose a username"
-          autocomplete="username"
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="you@example.com"
-          autocomplete="email"
-          required
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Your password"
-          autocomplete="current-password"
-          required
-        >
-      </div>
-
-      <div class="form-group" id="confirmGroup" style="display:none;">
-        <label for="confirmPassword">Confirm Password</label>
-        <input
-          id="confirmPassword"
-          type="password"
-          placeholder="Enter your password again"
-          autocomplete="new-password"
-        >
-      </div>
-
-      <button class="auth-submit" id="authSubmit" type="submit">
-        Login
-      </button>
-
-      <div class="auth-message" id="authMessage"></div>
-
-    </form>
-
-  </div>
-</div>
-
-<!-- Mobile header -->
-<div class="mobile-header" id="mobileHeader" style="display:none;">
-  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-  <div class="mobile-title">🌎 MyWorld</div>
-</div>
-
-<!-- Sidebar -->
-<aside class="sidebar" id="sidebar" style="display:none;">
-
-  <div class="logo">
-    🌎 MyWorld
-  </div>
-
-  <nav class="nav">
-
-    <button class="active" onclick="showPage('home',this)">
-      🏠 Home
-    </button>
-
-    <button onclick="showPage('apps',this)">
-      📱 My Apps
-    </button>
-
-    <button onclick="showPage('activity',this)">
-      📊 Activity
-    </button>
-
-    <button onclick="showPage('profile',this)">
-      👤 Profile
-    </button>
-
-    <button onclick="showPage('settings',this)">
-      ⚙️ Settings
-    </button>
-
-  </nav>
-
-  <div class="sidebar-bottom">
-
-    <div class="user-mini">
-      <div class="user-mini-name" id="sidebarUsername">
-        Loading...
-      </div>
-
-      <div class="user-mini-email" id="sidebarEmail">
-        Loading...
-      </div>
+    <div class="nav">
+        <button class="active" onclick="showSection('home',this)">🏠 Home</button>
+        <button onclick="showSection('apps',this)">📱 My Apps</button>
+        <button onclick="showSection('activity',this)">📊 Activity</button>
+        <button onclick="showSection('profile',this)">👤 Profile</button>
+        <button onclick="showSection('settings',this)">⚙️ Settings</button>
     </div>
 
-    <button
-      class="danger"
-      style="width:100%;"
-      onclick="logout()"
-    >
-      Log Out
-    </button>
-
-  </div>
+    <div class="sidebar-bottom">
+        <button class="nav button" onclick="logout()">🚪 Log Out</button>
+    </div>
 
 </aside>
 
-<!-- Main -->
-<main class="main" id="mainContent" style="display:none;">
+<!-- MAIN -->
+<main class="main">
 
-  <!-- HOME -->
-  <section class="page active" id="page-home">
+    <div class="topbar">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
-    <div class="hero">
+        <div></div>
 
-      <div class="hero-icon">🌎</div>
-
-      <h1 id="welcomeText">
-        Welcome to MyWorld 👋
-      </h1>
-
-      <p>
-        Your personal home for all your web projects.
-      </p>
-
-      <div class="account-status">
-        <span class="online-dot"></span>
-        Firebase account connected
-      </div>
-
-    </div>
-
-    <h2 class="section-title">Your Apps</h2>
-
-    <div class="apps">
-
-      <div class="card app-card">
-        <div class="app-icon">💬</div>
-        <h3>MyChat</h3>
-        <p>Your communication platform.</p>
-        <button class="primary" onclick="openApp('MyChat')">
-          Open MyChat
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">🧱</div>
-        <h3>BlockWeb</h3>
-        <p>Your browser-based Minecraft-style world.</p>
-        <button class="primary" onclick="openApp('BlockWeb')">
-          Open BlockWeb
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">🎮</div>
-        <h3>MyGames</h3>
-        <p>Your collection of games.</p>
-        <button class="primary" onclick="openApp('MyGames')">
-          Coming Soon
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">📁</div>
-        <h3>MyFiles</h3>
-        <p>Your personal file system.</p>
-        <button class="primary" onclick="openApp('MyFiles')">
-          Coming Soon
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">📝</div>
-        <h3>MyNotes</h3>
-        <p>Your personal notes.</p>
-        <button class="primary" onclick="openApp('MyNotes')">
-          Coming Soon
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">💻</div>
-        <h3>MyCode</h3>
-        <p>Your coding projects.</p>
-        <button class="primary" onclick="openApp('MyCode')">
-          Coming Soon
-        </button>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- APPS -->
-  <section class="page" id="page-apps">
-
-    <div class="hero">
-      <div class="hero-icon">📱</div>
-
-      <h1>My Apps</h1>
-
-      <p>
-        Everything you're building, all in one place.
-      </p>
-    </div>
-
-    <div class="apps">
-
-      <div class="card app-card">
-        <div class="app-icon">💬</div>
-        <h3>MyChat</h3>
-        <p>Realtime communication platform.</p>
-        <button class="primary" onclick="openApp('MyChat')">
-          Launch
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">🧱</div>
-        <h3>BlockWeb</h3>
-        <p>Browser-based Minecraft-style game.</p>
-        <button class="primary" onclick="openApp('BlockWeb')">
-          Launch
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">🎮</div>
-        <h3>MyGames</h3>
-        <p>Game collection.</p>
-        <button class="primary" onclick="openApp('MyGames')">
-          Coming Soon
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">📁</div>
-        <h3>MyFiles</h3>
-        <p>Personal files.</p>
-        <button class="primary" onclick="openApp('MyFiles')">
-          Coming Soon
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">📝</div>
-        <h3>MyNotes</h3>
-        <p>Personal notes.</p>
-        <button class="primary" onclick="openApp('MyNotes')">
-          Coming Soon
-        </button>
-      </div>
-
-      <div class="card app-card">
-        <div class="app-icon">💻</div>
-        <h3>MyCode</h3>
-        <p>Coding projects.</p>
-        <button class="primary" onclick="openApp('MyCode')">
-          Coming Soon
-        </button>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ACTIVITY -->
-  <section class="page" id="page-activity">
-
-    <div class="hero">
-      <div class="hero-icon">📊</div>
-
-      <h1>Activity</h1>
-
-      <p>
-        Your recent MyWorld activity.
-      </p>
-    </div>
-
-    <div class="card">
-      <div class="activity-list" id="activityList">
-        <div class="empty">
-          No activity yet.
+        <div class="user-area">
+            <span id="topUsername">User</span>
+            <div class="avatar" id="topAvatar">U</div>
         </div>
-      </div>
     </div>
 
-  </section>
+    <!-- HOME -->
+    <section class="section active" id="home">
 
-
-  <!-- PROFILE -->
-  <section class="page" id="page-profile">
-
-    <div class="hero">
-      <div class="hero-icon">👤</div>
-
-      <h1>Profile</h1>
-
-      <p>
-        Your MyWorld account.
-      </p>
-    </div>
-
-    <div class="card">
-
-      <div class="profile-box">
-
-        <div class="avatar" id="profileAvatar">
-          ?
+        <div class="hero">
+            <h1 id="welcomeText">Welcome to MyWorld!</h1>
+            <p>Your central hub for all of your apps and projects.</p>
         </div>
 
-        <div class="profile-info">
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">6</div>
+                <div>My Apps</div>
+            </div>
 
-          <h2 id="profileUsername">
-            Loading...
-          </h2>
+            <div class="stat">
+                <div class="stat-number" id="activityCount">0</div>
+                <div>Activities</div>
+            </div>
 
-          <p id="profileEmail">
-            Loading...
-          </p>
+            <div class="stat">
+                <div class="stat-number">1</div>
+                <div>Account</div>
+            </div>
+        </div>
 
-          <p id="profileUID">
-            Account ID: Loading...
-          </p>
+        <h2 style="margin-bottom:15px;">Featured Apps</h2>
 
-          <div class="account-status">
-            <span class="online-dot"></span>
-            Account active
-          </div>
+        <div class="cards">
+
+            <div class="card">
+                <div class="card-icon">💬</div>
+                <h3>MyChat</h3>
+                <p>Chat with friends using rooms, DMs, groups and more.</p>
+                <button onclick="openApp('MyChat')">Open MyChat</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🧱</div>
+                <h3>BlockWeb</h3>
+                <p>A Minecraft-style browser world.</p>
+                <button onclick="openApp('BlockWeb')">Open BlockWeb</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🎮</div>
+                <h3>MyGames</h3>
+                <p>Your collection of browser games.</p>
+                <button onclick="openApp('MyGames')">Open MyGames</button>
+            </div>
 
         </div>
 
-      </div>
+    </section>
 
-    </div>
+    <!-- APPS -->
+    <section class="section" id="apps">
 
-  </section>
-
-
-  <!-- SETTINGS -->
-  <section class="page" id="page-settings">
-
-    <div class="hero">
-      <div class="hero-icon">⚙️</div>
-
-      <h1>Settings</h1>
-
-      <p>
-        Customize your MyWorld experience.
-      </p>
-    </div>
-
-    <div class="card">
-
-      <div class="setting-row">
-
-        <div>
-          <strong>Dark Mode</strong>
-
-          <div class="setting-description">
-            Switch between light and dark themes.
-          </div>
+        <div class="hero">
+            <h1>📱 My Apps</h1>
+            <p>Everything you're building, all in one place.</p>
         </div>
 
-        <button
-          class="toggle"
-          id="darkToggle"
-          onclick="toggleDarkMode()"
-        ></button>
+        <div class="cards">
 
-      </div>
+            <div class="card">
+                <div class="card-icon">💬</div>
+                <h3>MyChat</h3>
+                <p>Your communication platform.</p>
+                <button onclick="openApp('MyChat')">Open</button>
+            </div>
 
-      <div class="setting-row">
+            <div class="card">
+                <div class="card-icon">🧱</div>
+                <h3>BlockWeb</h3>
+                <p>Your browser Minecraft-style project.</p>
+                <button onclick="openApp('BlockWeb')">Open</button>
+            </div>
 
-        <div>
-          <strong>Account</strong>
+            <div class="card">
+                <div class="card-icon">🎮</div>
+                <h3>MyGames</h3>
+                <p>Your browser game library.</p>
+                <button onclick="openApp('MyGames')">Open</button>
+            </div>
 
-          <div class="setting-description">
-            Signed in as <span id="settingsEmail">Loading...</span>
-          </div>
+            <div class="card">
+                <div class="card-icon">📁</div>
+                <h3>MyFiles</h3>
+                <p>Your personal file system.</p>
+                <button onclick="comingSoon()">Coming Soon</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <h3>MyNotes</h3>
+                <p>A place for your notes and ideas.</p>
+                <button onclick="comingSoon()">Coming Soon</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">💻</div>
+                <h3>MyCode</h3>
+                <p>Your coding workspace.</p>
+                <button onclick="comingSoon()">Coming Soon</button>
+            </div>
+
         </div>
 
-        <button class="secondary" onclick="logout()">
-          Log Out
-        </button>
+    </section>
 
-      </div>
+    <!-- ACTIVITY -->
+    <section class="section" id="activity">
 
-    </div>
+        <div class="hero">
+            <h1>📊 Activity</h1>
+            <p>Your recent MyWorld activity.</p>
+        </div>
 
-  </section>
+        <div class="card">
+            <h3>Recent Activity</h3>
+            <div id="activityList" style="margin-top:15px;">
+                No activity yet.
+            </div>
+        </div>
+
+    </section>
+
+    <!-- PROFILE -->
+    <section class="section" id="profile">
+
+        <div class="hero">
+            <h1>👤 Profile</h1>
+            <p>Your MyWorld account.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">👤</div>
+            <h2 id="profileUsername">User</h2>
+            <p id="profileEmail">Email</p>
+        </div>
+
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="section" id="settings">
+
+        <div class="hero">
+            <h1>⚙️ Settings</h1>
+            <p>Customize your MyWorld experience.</p>
+        </div>
+
+        <div class="setting">
+            <div>
+                <strong>Dark Mode</strong>
+                <p style="margin-top:4px;color:#777;">Change the appearance of MyWorld.</p>
+            </div>
+
+            <button onclick="toggleDarkMode()">Toggle</button>
+        </div>
+
+        <div class="setting">
+            <div>
+                <strong>Account</strong>
+                <p style="margin-top:4px;color:#777;">Sign out of your MyWorld account.</p>
+            </div>
+
+            <button onclick="logout()">Log Out</button>
+        </div>
+
+    </section>
 
 </main>
-
 
 <script type="module">
 
 import { initializeApp }
-  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  updateProfile
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 import {
-  getDatabase,
-  ref,
-  set,
-  get,
-  push
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+    getDatabase,
+    ref,
+    set,
+    push,
+    get
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
 
-/* =========================================
-   FIREBASE CONFIG
-========================================= */
+/* FIREBASE */
 
 const firebaseConfig = {
-
-  apiKey: "AIzaSyDFun3M-6mzjBL8DFcAfmJzDv7blNODQd0",
-
-  authDomain: "mychat-8dac2.firebaseapp.com",
-
-  databaseURL:
-    "https://mychat-8dac2-default-rtdb.firebaseio.com",
-
-  projectId: "mychat-8dac2",
-
-  storageBucket:
-    "mychat-8dac2.firebasestorage.app",
-
-  messagingSenderId:
-    "906137277444",
-
-  appId:
-    "1:906137277444:web:b9d52ef4ec1f76afe09151"
-
+    apiKey: "AIzaSyDFun3M-6mzjBL8DFcAfmJzDv7blNODQd0",
+    authDomain: "mychat-8dac2.firebaseapp.com",
+    databaseURL: "https://mychat-8dac2-default-rtdb.firebaseio.com",
+    projectId: "mychat-8dac2",
+    storageBucket: "mychat-8dac2.firebasestorage.app",
+    messagingSenderId: "906137277444",
+    appId: "1:906137277444:web:b9d52ef4ec1f76afe09151"
 };
 
-
-/* =========================================
-   INITIALIZE FIREBASE
-========================================= */
-
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
-
 const db = getDatabase(app);
 
 
-/* =========================================
-   GLOBAL STATE
-========================================= */
+/* LOGIN */
 
-let currentUser = null;
+window.login = async function(){
 
-let authMode = "login";
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
 
-
-/* =========================================
-   ELEMENTS
-========================================= */
-
-const loadingScreen =
-  document.getElementById("loadingScreen");
-
-const authScreen =
-  document.getElementById("authScreen");
-
-const sidebar =
-  document.getElementById("sidebar");
-
-const mainContent =
-  document.getElementById("mainContent");
-
-const mobileHeader =
-  document.getElementById("mobileHeader");
-
-const authForm =
-  document.getElementById("authForm");
-
-const authMessage =
-  document.getElementById("authMessage");
-
-const authSubmit =
-  document.getElementById("authSubmit");
-
-
-/* =========================================
-   DARK MODE
-========================================= */
-
-const savedDark =
-  localStorage.getItem("myworldDark");
-
-if(savedDark === "true"){
-  document.body.classList.add("dark");
-}
-
-updateDarkToggle();
-
-
-window.toggleDarkMode = function(){
-
-  document.body.classList.toggle("dark");
-
-  const enabled =
-    document.body.classList.contains("dark");
-
-  localStorage.setItem(
-    "myworldDark",
-    enabled
-  );
-
-  updateDarkToggle();
+    try{
+        await signInWithEmailAndPassword(auth,email,password);
+        document.getElementById("loginError").textContent="";
+    }
+    catch(error){
+        document.getElementById("loginError").textContent =
+            error.message;
+    }
 };
 
 
-function updateDarkToggle(){
+/* SIGN UP */
 
-  const toggle =
-    document.getElementById("darkToggle");
+window.signup = async function(){
 
-  if(!toggle) return;
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value.trim();
 
-  toggle.classList.toggle(
-    "on",
-    document.body.classList.contains("dark")
-  );
-}
+    if(!username){
+        document.getElementById("loginError").textContent =
+            "Please enter a username.";
+        return;
+    }
 
+    try{
 
-/* =========================================
-   AUTH MODE
-========================================= */
+        const result =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
-window.showAuthMode = function(mode){
+        await set(
+            ref(db,"users/"+result.user.uid),
+            {
+                username:username,
+                email:email,
+                createdAt:Date.now()
+            }
+        );
 
-  authMode = mode;
+        document.getElementById("loginError").textContent="";
 
-  const loginTab =
-    document.getElementById("loginTab");
+    }
+    catch(error){
 
-  const signupTab =
-    document.getElementById("signupTab");
-
-  const usernameGroup =
-    document.getElementById("usernameGroup");
-
-  const confirmGroup =
-    document.getElementById("confirmGroup");
-
-  const password =
-    document.getElementById("password");
-
-  if(mode === "login"){
-
-    loginTab.classList.add("active");
-
-    signupTab.classList.remove("active");
-
-    usernameGroup.style.display = "none";
-
-    confirmGroup.style.display = "none";
-
-    password.autocomplete = "current-password";
-
-    authSubmit.textContent = "Login";
-
-  }else{
-
-    signupTab.classList.add("active");
-
-    loginTab.classList.remove("active");
-
-    usernameGroup.style.display = "block";
-
-    confirmGroup.style.display = "block";
-
-    password.autocomplete = "new-password";
-
-    authSubmit.textContent = "Create Account";
-
-  }
-
-  clearAuthMessage();
+        document.getElementById("loginError").textContent =
+            error.message;
+    }
 };
 
 
-/* =========================================
-   AUTH FORM
-========================================= */
+/* AUTH STATE */
 
-authForm.addEventListener("submit", async (event)=>{
+onAuthStateChanged(auth, async(user)=>{
 
-  event.preventDefault();
+    if(user){
 
-  clearAuthMessage();
+        document.getElementById("loginScreen")
+            .classList.add("hidden");
 
-  const email =
-    document.getElementById("email")
-      .value
-      .trim();
-
-  const password =
-    document.getElementById("password")
-      .value;
-
-  try{
-
-    authSubmit.disabled = true;
-
-    authSubmit.textContent =
-      authMode === "login"
-        ? "Logging in..."
-        : "Creating account...";
-
-
-    if(authMode === "signup"){
-
-      const username =
-        document.getElementById("username")
-          .value
-          .trim();
-
-      const confirmPassword =
-        document.getElementById("confirmPassword")
-          .value;
-
-
-      if(username.length < 3){
-
-        throw new Error(
-          "Username must be at least 3 characters."
-        );
-
-      }
-
-
-      if(password.length < 6){
-
-        throw new Error(
-          "Password must be at least 6 characters."
-        );
-
-      }
-
-
-      if(password !== confirmPassword){
-
-        throw new Error(
-          "The passwords do not match."
-        );
-
-      }
-
-
-      const credential =
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-
-      await updateProfile(
-        credential.user,
-        {
-          displayName: username
-        }
-      );
-
-
-      await saveUserProfile(
-        credential.user,
-        username
-      );
-
-
-      await addActivity(
-        credential.user.uid,
-        "Created your MyWorld account"
-      );
-
+        await loadUser(user);
 
     }else{
 
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
+        document.getElementById("loginScreen")
+            .classList.remove("hidden");
     }
-
-  }catch(error){
-
-    console.error(error);
-
-    showAuthError(
-      firebaseErrorMessage(error)
-    );
-
-  }finally{
-
-    authSubmit.disabled = false;
-
-    authSubmit.textContent =
-      authMode === "login"
-        ? "Login"
-        : "Create Account";
-
-  }
 
 });
 
 
-/* =========================================
-   AUTH STATE
-========================================= */
+/* LOAD USER */
 
-onAuthStateChanged(
-  auth,
-  async (user)=>{
+async function loadUser(user){
 
-    currentUser = user;
-
-    loadingScreen.style.display = "none";
-
-
-    if(user){
-
-      authScreen.style.display = "none";
-
-      sidebar.style.display = "block";
-
-      mainContent.style.display = "block";
-
-      mobileHeader.style.display = "flex";
-
-      await loadUserInterface(user);
-
-    }else{
-
-      authScreen.style.display = "flex";
-
-      sidebar.style.display = "none";
-
-      mainContent.style.display = "none";
-
-      mobileHeader.style.display = "none";
-
-      showAuthMode("login");
-
-    }
-
-  }
-);
-
-
-/* =========================================
-   LOAD USER
-========================================= */
-
-async function loadUserInterface(user){
-
-  let username =
-    user.displayName;
-
-
-  if(!username){
+    let username = "User";
 
     try{
 
-      const snapshot =
-        await get(
-          ref(db, "users/" + user.uid)
-        );
+        const snapshot =
+            await get(ref(db,"users/"+user.uid));
 
-      if(snapshot.exists()){
+        if(snapshot.exists()){
 
-        username =
-          snapshot.val().username;
+            const data = snapshot.val();
 
-      }
+            if(data.username){
+                username = data.username;
+            }
+        }
 
     }catch(error){
 
-      console.error(
-        "Could not load profile:",
-        error
-      );
+        console.log(error);
 
     }
 
-  }
+    document.getElementById("topUsername").textContent =
+        username;
 
+    document.getElementById("profileUsername").textContent =
+        username;
 
-  username =
-    username ||
-    user.email.split("@")[0];
+    document.getElementById("profileEmail").textContent =
+        user.email;
 
+    document.getElementById("welcomeText").textContent =
+        "Welcome, "+username+"!";
 
-  document.getElementById(
-    "welcomeText"
-  ).textContent =
-    "Welcome to " + username + " 👋";
+    document.getElementById("topAvatar").textContent =
+        username.charAt(0).toUpperCase();
 
-
-  document.getElementById(
-    "sidebarUsername"
-  ).textContent =
-    username;
-
-
-  document.getElementById(
-    "sidebarEmail"
-  ).textContent =
-    user.email;
-
-
-  document.getElementById(
-    "profileUsername"
-  ).textContent =
-    username;
-
-
-  document.getElementById(
-    "profileEmail"
-  ).textContent =
-    user.email;
-
-
-  document.getElementById(
-    "profileUID"
-  ).textContent =
-    "Account ID: " + user.uid;
-
-
-  document.getElementById(
-    "settingsEmail"
-  ).textContent =
-    user.email;
-
-
-  const avatar =
-    document.getElementById("profileAvatar");
-
-  avatar.textContent =
-    username.charAt(0).toUpperCase();
-
-
-  await loadActivity(user.uid);
-
+    loadActivity(user.uid);
 }
 
 
-/* =========================================
-   SAVE PROFILE
-========================================= */
+/* APP LINKS */
 
-async function saveUserProfile(
-  user,
-  username
-){
+const apps = {
 
-  await set(
-    ref(db, "users/" + user.uid),
-    {
-      username: username,
-      email: user.email,
-      createdAt: Date.now(),
-      lastLogin: Date.now()
-    }
-  );
+    MyChat:
+        "https://lazerman202.github.io/MyChat/",
 
-}
+    BlockWeb:
+        "https://lazerman202.github.io/BlockWeb/",
+
+    MyGames:
+        "https://lazerman202.github.io/MyGames/"
+
+};
 
 
-/* =========================================
-   UPDATE LAST LOGIN
-========================================= */
-
-async function updateLastLogin(user){
-
-  try{
-
-    await set(
-      ref(db, "users/" + user.uid + "/lastLogin"),
-      Date.now()
-    );
-
-  }catch(error){
-
-    console.error(
-      "Could not update last login:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   ACTIVITY
-========================================= */
-
-async function addActivity(
-  uid,
-  text
-){
-
-  try{
-
-    await push(
-      ref(db, "activity/" + uid),
-      {
-        text: text,
-        timestamp: Date.now()
-      }
-    );
-
-  }catch(error){
-
-    console.error(
-      "Could not save activity:",
-      error
-    );
-
-  }
-
-}
-
-
-async function loadActivity(uid){
-
-  const list =
-    document.getElementById("activityList");
-
-  list.innerHTML =
-    '<div class="empty">Loading activity...</div>';
-
-
-  try{
-
-    const snapshot =
-      await get(
-        ref(db, "activity/" + uid)
-      );
-
-
-    if(!snapshot.exists()){
-
-      list.innerHTML =
-        '<div class="empty">No activity yet.</div>';
-
-      return;
-
-    }
-
-
-    const activities =
-      Object.values(snapshot.val())
-        .sort(
-          (a,b)=>
-            (b.timestamp || 0) -
-            (a.timestamp || 0)
-        )
-        .slice(0,30);
-
-
-    list.innerHTML = "";
-
-
-    activities.forEach(activity=>{
-
-      const item =
-        document.createElement("div");
-
-      item.className =
-        "activity-item";
-
-
-      const title =
-        document.createElement("strong");
-
-      title.textContent =
-        activity.text || "Activity";
-
-
-      const time =
-        document.createElement("div");
-
-      time.className =
-        "activity-time";
-
-      time.textContent =
-        formatDate(activity.timestamp);
-
-
-      item.appendChild(title);
-
-      item.appendChild(time);
-
-      list.appendChild(item);
-
-    });
-
-  }catch(error){
-
-    console.error(error);
-
-    list.innerHTML =
-      '<div class="empty">Could not load activity.</div>';
-
-  }
-
-}
-
-
-/* =========================================
-   OPEN APPS
-========================================= */
+/* OPEN APP */
 
 window.openApp = async function(name){
 
-  if(!currentUser) return;
+    if(!apps[name]){
+        comingSoon();
+        return;
+    }
+
+    const user = auth.currentUser;
+
+    if(user){
+
+        try{
+
+            await push(
+                ref(db,"activity/"+user.uid),
+                {
+                    app:name,
+                    action:"Opened "+name,
+                    time:Date.now()
+                }
+            );
+
+        }catch(error){
+
+            console.log(error);
+
+        }
+
+    }
+
+    window.location.href = apps[name];
+};
 
 
-  const urls = {
+/* COMING SOON */
 
-    MyChat:
-      "https://lazerman202.github.io/MyChat/",
+window.comingSoon = function(){
 
-    BlockWeb:
-      "https://lazerman202.github.io/BlockWeb/"
-
-  };
-
-
-  await addActivity(
-    currentUser.uid,
-    "Opened " + name
-  );
-
-
-  if(urls[name]){
-
-    window.location.href =
-      urls[name];
-
-  }else{
-
-    alert(
-      name +
-      " is coming soon!"
-    );
-
-  }
+    alert("This app is coming soon!");
 
 };
 
 
-/* =========================================
-   NAVIGATION
-========================================= */
+/* NAVIGATION */
 
-window.showPage = function(
-  page,
-  button
-){
+window.showSection = function(section,button){
 
-  document
-    .querySelectorAll(".page")
-    .forEach(p=>{
-      p.classList.remove("active");
-    });
+    document.querySelectorAll(".section")
+        .forEach(s=>s.classList.remove("active"));
 
+    document.getElementById(section)
+        .classList.add("active");
 
-  const target =
-    document.getElementById(
-      "page-" + page
-    );
+    document.querySelectorAll(".nav button")
+        .forEach(b=>b.classList.remove("active"));
 
+    if(button){
+        button.classList.add("active");
+    }
 
-  if(target){
-
-    target.classList.add("active");
-
-  }
-
-
-  document
-    .querySelectorAll(".nav button")
-    .forEach(btn=>{
-      btn.classList.remove("active");
-    });
-
-
-  if(button){
-
-    button.classList.add("active");
-
-  }
-
-
-  if(page === "activity" && currentUser){
-
-    loadActivity(
-      currentUser.uid
-    );
-
-  }
-
-
-  if(window.innerWidth <= 800){
-
-    sidebar.classList.remove("open");
-
-  }
-
+    if(window.innerWidth <= 700){
+        document.getElementById("sidebar")
+            .classList.remove("open");
+    }
 };
 
 
-/* =========================================
-   MOBILE SIDEBAR
-========================================= */
+/* SIDEBAR */
 
 window.toggleSidebar = function(){
 
-  sidebar.classList.toggle("open");
+    document.getElementById("sidebar")
+        .classList.toggle("open");
 
 };
 
 
-/* =========================================
-   LOGOUT
-========================================= */
+/* DARK MODE */
+
+window.toggleDarkMode = function(){
+
+    document.body.classList.toggle("dark");
+
+    localStorage.setItem(
+        "myworldDarkMode",
+        document.body.classList.contains("dark")
+    );
+
+};
+
+
+/* LOAD DARK MODE */
+
+if(localStorage.getItem("myworldDarkMode")==="true"){
+    document.body.classList.add("dark");
+}
+
+
+/* ACTIVITY */
+
+async function loadActivity(uid){
+
+    try{
+
+        const snapshot =
+            await get(ref(db,"activity/"+uid));
+
+        const list =
+            document.getElementById("activityList");
+
+        if(!snapshot.exists()){
+
+            list.textContent="No activity yet.";
+            document.getElementById("activityCount").textContent="0";
+            return;
+
+        }
+
+        const data = snapshot.val();
+        const entries = Object.values(data).reverse();
+
+        document.getElementById("activityCount").textContent =
+            entries.length;
+
+        list.innerHTML="";
+
+        entries.slice(0,10).forEach(item=>{
+
+            const div=document.createElement("div");
+
+            div.style.padding="10px 0";
+            div.style.borderBottom="1px solid #ddd";
+
+            div.textContent =
+                item.action || "Activity";
+
+            list.appendChild(div);
+
+        });
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+
+/* LOGOUT */
 
 window.logout = async function(){
 
-  if(!currentUser) return;
-
-
-  try{
-
-    await addActivity(
-      currentUser.uid,
-      "Logged out of MyWorld"
-    );
-
     await signOut(auth);
 
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "Could not log out. Please try again."
-    );
-
-  }
-
 };
-
-
-/* =========================================
-   ERROR HANDLING
-========================================= */
-
-function firebaseErrorMessage(error){
-
-  const code =
-    error.code || "";
-
-
-  switch(code){
-
-    case "auth/email-already-in-use":
-      return "That email address is already registered.";
-
-    case "auth/invalid-email":
-      return "Please enter a valid email address.";
-
-    case "auth/weak-password":
-      return "Your password is too weak. Use at least 6 characters.";
-
-    case "auth/user-not-found":
-      return "No account was found with that email.";
-
-    case "auth/wrong-password":
-      return "Incorrect password.";
-
-    case "auth/invalid-credential":
-      return "The email or password is incorrect.";
-
-    case "auth/too-many-requests":
-      return "Too many attempts. Please wait a little and try again.";
-
-    case "auth/network-request-failed":
-      return "Network error. Check your internet connection.";
-
-    case "auth/operation-not-allowed":
-      return "Email/password authentication is not enabled in Firebase.";
-
-    default:
-
-      if(error.message){
-
-        return error.message;
-
-      }
-
-      return "Something went wrong. Please try again.";
-
-  }
-
-}
-
-
-function showAuthError(message){
-
-  authMessage.textContent =
-    message;
-
-  authMessage.className =
-    "auth-message show error";
-
-}
-
-
-function clearAuthMessage(){
-
-  authMessage.textContent = "";
-
-  authMessage.className =
-    "auth-message";
-
-}
-
-
-/* =========================================
-   DATE FORMAT
-========================================= */
-
-function formatDate(timestamp){
-
-  if(!timestamp) return "Unknown time";
-
-
-  return new Date(timestamp)
-    .toLocaleString(
-      undefined,
-      {
-        dateStyle:"medium",
-        timeStyle:"short"
-      }
-    );
-
-}
-
-
-/* =========================================
-   UPDATE LOGIN TIME
-========================================= */
-
-let lastUserLoaded = null;
-
-
-onAuthStateChanged(
-  auth,
-  async user=>{
-
-    if(
-      user &&
-      user.uid !== lastUserLoaded
-    ){
-
-      lastUserLoaded =
-        user.uid;
-
-      await updateLastLogin(user);
-
-      await addActivity(
-        user.uid,
-        "Logged into MyWorld"
-      );
-
-    }
-
-    if(!user){
-
-      lastUserLoaded = null;
-
-    }
-
-  }
-);
 
 </script>
 
