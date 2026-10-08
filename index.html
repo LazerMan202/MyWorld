@@ -4,9 +4,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>MyWorld</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -26,6 +28,9 @@ body.dark{
     color:#eee;
 }
 
+
+/* SIDEBAR */
+
 .sidebar{
     position:fixed;
     left:0;
@@ -35,7 +40,7 @@ body.dark{
     background:#fff;
     border-right:1px solid #ddd;
     padding:20px;
-    z-index:10;
+    z-index:50;
 }
 
 .dark .sidebar{
@@ -58,12 +63,12 @@ body.dark{
 .nav button{
     border:none;
     background:transparent;
+    color:inherit;
     text-align:left;
     padding:12px;
     border-radius:10px;
     cursor:pointer;
     font-size:15px;
-    color:inherit;
 }
 
 .nav button:hover,
@@ -82,6 +87,13 @@ body.dark{
     left:20px;
     right:20px;
 }
+
+.sidebar-bottom button{
+    width:100%;
+}
+
+
+/* MAIN */
 
 .main{
     margin-left:245px;
@@ -127,6 +139,20 @@ body.dark{
     font-weight:bold;
 }
 
+
+/* SECTIONS */
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+
+/* HERO */
+
 .hero{
     background:linear-gradient(135deg,#4d7cff,#7257e8);
     color:#fff;
@@ -144,73 +170,12 @@ body.dark{
     opacity:.9;
 }
 
-.section{
-    display:none;
-}
 
-.section.active{
-    display:block;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:18px;
-}
-
-.card{
-    background:#fff;
-    border-radius:15px;
-    padding:22px;
-    border:1px solid #ddd;
-    transition:.2s;
-}
-
-.dark .card{
-    background:#1e2125;
-    border-color:#333;
-}
-
-.card:hover{
-    transform:translateY(-2px);
-}
-
-.card-icon{
-    font-size:34px;
-    margin-bottom:12px;
-}
-
-.card h3{
-    margin-bottom:7px;
-}
-
-.card p{
-    color:#666;
-    font-size:14px;
-    margin-bottom:18px;
-}
-
-.dark .card p{
-    color:#aaa;
-}
-
-.card button{
-    border:none;
-    background:#4d7cff;
-    color:#fff;
-    padding:10px 15px;
-    border-radius:9px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.card button:hover{
-    opacity:.9;
-}
+/* STATS */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    grid-template-columns:repeat(4,1fr);
     gap:15px;
     margin-bottom:25px;
 }
@@ -218,8 +183,8 @@ body.dark{
 .stat{
     background:#fff;
     border:1px solid #ddd;
-    padding:20px;
     border-radius:14px;
+    padding:20px;
 }
 
 .dark .stat{
@@ -228,10 +193,138 @@ body.dark{
 }
 
 .stat-number{
-    font-size:27px;
+    font-size:28px;
     font-weight:bold;
     margin-bottom:5px;
 }
+
+
+/* APP GRID */
+
+.app-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fill,minmax(240px,1fr));
+    gap:18px;
+}
+
+.app-card{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:22px;
+    transition:.2s;
+}
+
+.dark .app-card{
+    background:#1e2125;
+    border-color:#333;
+}
+
+.app-card:hover{
+    transform:translateY(-2px);
+}
+
+.app-icon{
+    font-size:38px;
+    margin-bottom:12px;
+}
+
+.app-card h3{
+    margin-bottom:7px;
+}
+
+.app-card p{
+    color:#666;
+    font-size:14px;
+    min-height:40px;
+    line-height:1.5;
+}
+
+.dark .app-card p{
+    color:#aaa;
+}
+
+.app-button{
+    display:inline-block;
+    margin-top:15px;
+    border:none;
+    background:#4d7cff;
+    color:#fff;
+    padding:10px 15px;
+    border-radius:9px;
+    cursor:pointer;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.app-button:hover{
+    opacity:.9;
+}
+
+.app-button.disabled{
+    background:#aaa;
+    cursor:not-allowed;
+}
+
+
+/* ACTIVITY */
+
+.activity-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.activity{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:16px;
+}
+
+.dark .activity{
+    background:#1e2125;
+    border-color:#333;
+}
+
+.activity-time{
+    color:#888;
+    font-size:12px;
+    margin-top:5px;
+}
+
+
+/* PROFILE */
+
+.profile-card{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:25px;
+}
+
+.dark .profile-card{
+    background:#1e2125;
+    border-color:#333;
+}
+
+.profile-avatar{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:#4d7cff;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+
+/* SETTINGS */
 
 .setting{
     background:#fff;
@@ -258,71 +351,10 @@ body.dark{
     cursor:pointer;
 }
 
-.login-screen{
-    position:fixed;
-    inset:0;
-    background:#f4f6f8;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:100;
-}
 
-.login-box{
-    width:min(400px,90%);
-    background:#fff;
-    padding:30px;
-    border-radius:18px;
-    box-shadow:0 10px 40px rgba(0,0,0,.12);
-}
+/* MOBILE */
 
-.login-box h1{
-    margin-bottom:8px;
-}
-
-.login-box p{
-    color:#666;
-    margin-bottom:20px;
-}
-
-.login-box input{
-    width:100%;
-    padding:13px;
-    margin-bottom:12px;
-    border:1px solid #ccc;
-    border-radius:9px;
-    font-size:15px;
-}
-
-.login-box button{
-    width:100%;
-    padding:13px;
-    border:none;
-    border-radius:9px;
-    background:#4d7cff;
-    color:#fff;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:5px;
-}
-
-.login-box .secondary{
-    background:#e9edf2;
-    color:#222;
-}
-
-.error{
-    color:#d33;
-    font-size:14px;
-    margin-top:10px;
-    min-height:18px;
-}
-
-.hidden{
-    display:none !important;
-}
-
-@media(max-width:700px){
+@media(max-width:800px){
 
     .sidebar{
         transform:translateX(-100%);
@@ -342,119 +374,91 @@ body.dark{
         display:block;
     }
 
-    .hero h1{
-        font-size:26px;
+    .stats{
+        grid-template-columns:repeat(2,1fr);
     }
+
+    .hero{
+        padding:25px;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
 }
+
+@media(max-width:500px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#222;
+    color:#fff;
+    padding:13px 18px;
+    border-radius:10px;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(10px);
+    transition:.2s;
+    z-index:100;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-
-<div class="login-screen" id="loginScreen">
-
-    <div class="login-box">
-
-        <h1>🌎 MyWorld</h1>
-
-        <p>
-            Sign in to your MyWorld account.
-        </p>
-
-        <input
-            id="email"
-            type="email"
-            placeholder="Email"
-        >
-
-        <input
-            id="password"
-            type="password"
-            placeholder="Password"
-        >
-
-        <input
-            id="username"
-            type="text"
-            placeholder="Username (for new accounts)"
-        >
-
-        <button onclick="login()">
-            Log In
-        </button>
-
-        <button
-            class="secondary"
-            onclick="signup()"
-        >
-            Create Account
-        </button>
-
-        <div
-            class="error"
-            id="loginError"
-        ></div>
-
-    </div>
-
-</div>
-
 
 <!-- SIDEBAR -->
 
-<aside
-    class="sidebar"
-    id="sidebar"
->
+<aside class="sidebar" id="sidebar">
 
     <div class="logo">
-        <span>🌎</span>MyWorld
+        🌎 MyWorld
     </div>
 
     <div class="nav">
 
         <button
             class="active"
-            onclick="showSection('home',this)"
-        >
+            onclick="showSection('home',this)">
             🏠 Home
         </button>
 
         <button
-            onclick="showSection('apps',this)"
-        >
+            onclick="showSection('apps',this)">
             📱 My Apps
         </button>
 
         <button
-            onclick="showSection('activity',this)"
-        >
+            onclick="showSection('activity',this)">
             📊 Activity
         </button>
 
         <button
-            onclick="showSection('profile',this)"
-        >
+            onclick="showSection('profile',this)">
             👤 Profile
         </button>
 
         <button
-            onclick="showSection('settings',this)"
-        >
+            onclick="showSection('settings',this)">
             ⚙️ Settings
-        </button>
-
-    </div>
-
-    <div class="sidebar-bottom">
-
-        <button
-            class="nav button"
-            onclick="logout()"
-        >
-            🚪 Log Out
         </button>
 
     </div>
@@ -466,12 +470,14 @@ body.dark{
 
 <main class="main">
 
+
+    <!-- TOPBAR -->
+
     <div class="topbar">
 
         <button
             class="menu-btn"
-            onclick="toggleSidebar()"
-        >
+            onclick="toggleSidebar()">
             ☰
         </button>
 
@@ -479,15 +485,12 @@ body.dark{
 
         <div class="user-area">
 
-            <span id="topUsername">
-                User
+            <span id="topUser">
+                Ian
             </span>
 
-            <div
-                class="avatar"
-                id="topAvatar"
-            >
-                U
+            <div class="avatar">
+                I
             </div>
 
         </div>
@@ -499,17 +502,17 @@ body.dark{
 
     <section
         class="section active"
-        id="home"
-    >
+        id="home">
 
         <div class="hero">
 
-            <h1 id="welcomeText">
-                Welcome to MyWorld!
+            <h1>
+                🌎 Welcome to MyWorld
             </h1>
 
             <p>
-                Your central hub for all of your apps and projects.
+                Your connected world of apps, games,
+                files, notes and more.
             </p>
 
         </div>
@@ -519,12 +522,14 @@ body.dark{
 
             <div class="stat">
 
-                <div class="stat-number">
-                    6
+                <div
+                    class="stat-number"
+                    id="appCount">
+                    5
                 </div>
 
                 <div>
-                    My Apps
+                    Apps Online
                 </div>
 
             </div>
@@ -534,8 +539,7 @@ body.dark{
 
                 <div
                     class="stat-number"
-                    id="activityCount"
-                >
+                    id="activityCount">
                     0
                 </div>
 
@@ -548,12 +552,27 @@ body.dark{
 
             <div class="stat">
 
-                <div class="stat-number">
+                <div
+                    class="stat-number">
                     1
                 </div>
 
                 <div>
-                    Account
+                    MyWorld Account
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number">
+                    ∞
+                </div>
+
+                <div>
+                    Possibilities
                 </div>
 
             </div>
@@ -562,15 +581,18 @@ body.dark{
 
 
         <h2 style="margin-bottom:15px;">
-            Featured Apps
+            🚀 Your Apps
         </h2>
 
 
-        <div class="cards">
+        <div class="app-grid">
 
-            <div class="card">
 
-                <div class="card-icon">
+            <!-- MYCHAT -->
+
+            <div class="app-card">
+
+                <div class="app-icon">
                     💬
                 </div>
 
@@ -579,21 +601,24 @@ body.dark{
                 </h3>
 
                 <p>
-                    Chat with friends using rooms, DMs, groups and more.
+                    Your communication platform
+                    for messages, groups and friends.
                 </p>
 
-                <button
-                    onclick="openApp('MyChat')"
-                >
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyChat/">
                     Open MyChat
-                </button>
+                </a>
 
             </div>
 
 
-            <div class="card">
+            <!-- BLOCKWEB -->
 
-                <div class="card-icon">
+            <div class="app-card">
+
+                <div class="app-icon">
                     🧱
                 </div>
 
@@ -602,21 +627,24 @@ body.dark{
                 </h3>
 
                 <p>
-                    A Minecraft-style browser world.
+                    A browser-based block-building
+                    world.
                 </p>
 
-                <button
-                    onclick="openApp('BlockWeb')"
-                >
-                    Open BlockWeb
-                </button>
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/BlockWeb/">
+                    Play BlockWeb
+                </a>
 
             </div>
 
 
-            <div class="card">
+            <!-- MYGAMES -->
 
-                <div class="card-icon">
+            <div class="app-card">
+
+                <div class="app-icon">
                     🎮
                 </div>
 
@@ -625,21 +653,24 @@ body.dark{
                 </h3>
 
                 <p>
-                    Your collection of browser games.
+                    Your collection of games,
+                    favorites and recently played.
                 </p>
 
-                <button
-                    onclick="openApp('MyGames')"
-                >
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyGames/">
                     Open MyGames
-                </button>
+                </a>
 
             </div>
 
 
-            <div class="card">
+            <!-- MYFILES -->
 
-                <div class="card-icon">
+            <div class="app-card">
+
+                <div class="app-icon">
                     📁
                 </div>
 
@@ -648,13 +679,66 @@ body.dark{
                 </h3>
 
                 <p>
-                    Upload, download and manage your files.
+                    Store, search, download and
+                    manage your files.
+                </p>
+
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyFiles/">
+                    Open MyFiles
+                </a>
+
+            </div>
+
+
+            <!-- MYNOTES -->
+
+            <div class="app-card">
+
+                <div class="app-icon">
+                    📝
+                </div>
+
+                <h3>
+                    MyNotes
+                </h3>
+
+                <p>
+                    Write, save, search and organize
+                    your notes.
+                </p>
+
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyNotes/">
+                    Open MyNotes
+                </a>
+
+            </div>
+
+
+            <!-- MYCODE -->
+
+            <div class="app-card">
+
+                <div class="app-icon">
+                    💻
+                </div>
+
+                <h3>
+                    MyCode
+                </h3>
+
+                <p>
+                    Your future place for creating
+                    and managing code.
                 </p>
 
                 <button
-                    onclick="openApp('MyFiles')"
-                >
-                    Open MyFiles
+                    class="app-button disabled"
+                    disabled>
+                    Coming Soon
                 </button>
 
             </div>
@@ -668,8 +752,7 @@ body.dark{
 
     <section
         class="section"
-        id="apps"
-    >
+        id="apps">
 
         <div class="hero">
 
@@ -678,146 +761,135 @@ body.dark{
             </h1>
 
             <p>
-                Everything you're building, all in one place.
+                Everything in your MyWorld ecosystem.
             </p>
 
         </div>
 
 
-        <div class="cards">
+        <div class="app-grid">
 
-            <div class="card">
 
-                <div class="card-icon">
+            <div class="app-card">
+
+                <div class="app-icon">
                     💬
                 </div>
 
-                <h3>
-                    MyChat
-                </h3>
+                <h3>MyChat</h3>
 
                 <p>
-                    Your communication platform.
+                    Communication platform.
                 </p>
 
-                <button
-                    onclick="openApp('MyChat')"
-                >
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyChat/">
                     Open
-                </button>
+                </a>
 
             </div>
 
 
-            <div class="card">
+            <div class="app-card">
 
-                <div class="card-icon">
+                <div class="app-icon">
                     🧱
                 </div>
 
-                <h3>
-                    BlockWeb
-                </h3>
+                <h3>BlockWeb</h3>
 
                 <p>
-                    Your browser Minecraft-style project.
+                    Browser block-building game.
                 </p>
 
-                <button
-                    onclick="openApp('BlockWeb')"
-                >
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/BlockWeb/">
                     Open
-                </button>
+                </a>
 
             </div>
 
 
-            <div class="card">
+            <div class="app-card">
 
-                <div class="card-icon">
+                <div class="app-icon">
                     🎮
                 </div>
 
-                <h3>
-                    MyGames
-                </h3>
+                <h3>MyGames</h3>
 
                 <p>
-                    Your browser game library.
+                    Your game library.
                 </p>
 
-                <button
-                    onclick="openApp('MyGames')"
-                >
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyGames/">
                     Open
-                </button>
+                </a>
 
             </div>
 
 
-            <div class="card">
+            <div class="app-card">
 
-                <div class="card-icon">
+                <div class="app-icon">
                     📁
                 </div>
 
-                <h3>
-                    MyFiles
-                </h3>
+                <h3>MyFiles</h3>
 
                 <p>
-                    Your personal file system.
+                    Your personal file manager.
                 </p>
 
-                <button
-                    onclick="openApp('MyFiles')"
-                >
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyFiles/">
                     Open
-                </button>
+                </a>
 
             </div>
 
 
-            <div class="card">
+            <div class="app-card">
 
-                <div class="card-icon">
+                <div class="app-icon">
                     📝
                 </div>
 
-                <h3>
-                    MyNotes
-                </h3>
+                <h3>MyNotes</h3>
 
                 <p>
-                    A place for your notes and ideas.
+                    Notes and ideas.
                 </p>
 
-                <button
-                    onclick="comingSoon()"
-                >
-                    Coming Soon
-                </button>
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyNotes/">
+                    Open
+                </a>
 
             </div>
 
 
-            <div class="card">
+            <div class="app-card">
 
-                <div class="card-icon">
+                <div class="app-icon">
                     💻
                 </div>
 
-                <h3>
-                    MyCode
-                </h3>
+                <h3>MyCode</h3>
 
                 <p>
-                    Your coding workspace.
+                    Code workspace.
                 </p>
 
                 <button
-                    onclick="comingSoon()"
-                >
+                    class="app-button disabled"
+                    disabled>
                     Coming Soon
                 </button>
 
@@ -832,8 +904,7 @@ body.dark{
 
     <section
         class="section"
-        id="activity"
-    >
+        id="activity">
 
         <div class="hero">
 
@@ -848,18 +919,9 @@ body.dark{
         </div>
 
 
-        <div class="card">
-
-            <h3>
-                Recent Activity
-            </h3>
-
-            <div
-                id="activityList"
-                style="margin-top:15px;"
-            >
-                No activity yet.
-            </div>
+        <div
+            class="activity-list"
+            id="activityList">
 
         </div>
 
@@ -870,8 +932,7 @@ body.dark{
 
     <section
         class="section"
-        id="profile"
-    >
+        id="profile">
 
         <div class="hero">
 
@@ -886,18 +947,23 @@ body.dark{
         </div>
 
 
-        <div class="card">
+        <div class="profile-card">
 
-            <div class="card-icon">
-                👤
+            <div class="profile-avatar">
+                I
             </div>
 
-            <h2 id="profileUsername">
-                User
+            <h2>
+                Ian
             </h2>
 
-            <p id="profileEmail">
-                Email
+            <p style="margin-top:8px;color:#777;">
+                MyWorld account
+            </p>
+
+            <p
+                id="profileEmail"
+                style="margin-top:5px;color:#777;">
             </p>
 
         </div>
@@ -909,8 +975,7 @@ body.dark{
 
     <section
         class="section"
-        id="settings"
-    >
+        id="settings">
 
         <div class="hero">
 
@@ -934,16 +999,14 @@ body.dark{
                 </strong>
 
                 <p
-                    style="margin-top:4px;color:#777;"
-                >
+                    style="margin-top:4px;color:#777;">
                     Change the appearance of MyWorld.
                 </p>
 
             </div>
 
             <button
-                onclick="toggleDarkMode()"
-            >
+                onclick="toggleDarkMode()">
                 Toggle
             </button>
 
@@ -955,59 +1018,56 @@ body.dark{
             <div>
 
                 <strong>
-                    Account
+                    Clear Activity
                 </strong>
 
                 <p
-                    style="margin-top:4px;color:#777;"
-                >
-                    Sign out of your MyWorld account.
+                    style="margin-top:4px;color:#777;">
+                    Remove your local activity history.
                 </p>
 
             </div>
 
             <button
-                onclick="logout()"
-            >
-                Log Out
+                onclick="clearActivity()">
+                Clear
             </button>
 
         </div>
 
     </section>
 
+
 </main>
 
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<!-- FIREBASE -->
 
 <script type="module">
 
 import {
     initializeApp
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
     getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 import {
     getDatabase,
     ref,
     set,
-    push,
-    get
-}
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+    push
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
-
-/* FIREBASE */
 
 const firebaseConfig = {
 
@@ -1045,135 +1105,33 @@ const db =
     getDatabase(app);
 
 
-/* LOGIN */
-
-window.login = async function(){
-
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
-
-    const password =
-        document.getElementById("password")
-        .value;
-
-    try{
-
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-
-        document.getElementById(
-            "loginError"
-        ).textContent="";
-
-    }
-    catch(error){
-
-        document.getElementById(
-            "loginError"
-        ).textContent =
-            error.message;
-
-    }
-
-};
-
-
-/* SIGN UP */
-
-window.signup = async function(){
-
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
-
-    const password =
-        document.getElementById("password")
-        .value;
-
-    const username =
-        document.getElementById("username")
-        .value
-        .trim();
-
-
-    if(!username){
-
-        document.getElementById(
-            "loginError"
-        ).textContent =
-            "Please enter a username.";
-
-        return;
-
-    }
-
-
-    try{
-
-        const result =
-            await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-
-        await set(
-            ref(
-                db,
-                "users/"+result.user.uid
-            ),
-            {
-                username:username,
-                email:email,
-                createdAt:Date.now()
-            }
-        );
-
-
-        document.getElementById(
-            "loginError"
-        ).textContent="";
-
-    }
-    catch(error){
-
-        document.getElementById(
-            "loginError"
-        ).textContent =
-            error.message;
-
-    }
-
-};
-
-
 /* AUTH */
 
 onAuthStateChanged(
     auth,
-    async(user)=>{
+    user=>{
 
         if(user){
 
-            document.getElementById(
-                "loginScreen"
-            ).classList.add("hidden");
-
-            await loadUser(user);
-
-        }
-        else{
+            const name =
+                user.displayName ||
+                "Ian";
 
             document.getElementById(
-                "loginScreen"
-            ).classList.remove("hidden");
+                "topUser"
+            ).textContent=name;
+
+
+            document.getElementById(
+                "profileEmail"
+            ).textContent=
+                user.email || "";
+
+
+            document.querySelector(
+                ".profile-avatar"
+            ).textContent=
+                name.charAt(0).toUpperCase();
 
         }
 
@@ -1181,134 +1139,65 @@ onAuthStateChanged(
 );
 
 
-/* LOAD USER */
+/* GLOBAL FUNCTIONS */
 
-async function loadUser(user){
+window.logActivity =
+    async function(text){
 
-    let username="User";
+        const user=auth.currentUser;
 
+        const activity={
 
-    try{
+            text:text,
 
-        const snapshot =
-            await get(
-                ref(
-                    db,
-                    "users/"+user.uid
-                )
-            );
+            timestamp:Date.now()
+
+        };
 
 
-        if(snapshot.exists()){
+        localStorage.setItem(
+            "myworldLastActivity",
+            JSON.stringify(activity)
+        );
 
-            const data =
-                snapshot.val();
 
-            if(data.username){
+        if(user){
 
-                username =
-                    data.username;
+            try{
+
+                await push(
+                    ref(
+                        db,
+                        "users/" +
+                        user.uid +
+                        "/activity"
+                    ),
+                    activity
+                );
+
+            }
+            catch(error){
+
+                console.log(
+                    "Activity sync failed:",
+                    error
+                );
 
             }
 
         }
 
-    }
-    catch(error){
-
-        console.log(error);
-
-    }
+    };
 
 
-    document.getElementById(
-        "topUsername"
-    ).textContent =
-        username;
-
-
-    document.getElementById(
-        "profileUsername"
-    ).textContent =
-        username;
-
-
-    document.getElementById(
-        "profileEmail"
-    ).textContent =
-        user.email;
-
-
-    document.getElementById(
-        "welcomeText"
-    ).textContent =
-        "Welcome, "+username+"!";
-
-
-    document.getElementById(
-        "topAvatar"
-    ).textContent =
-        username
-        .charAt(0)
-        .toUpperCase();
-
-
-    loadActivity(user.uid);
-
-}
-
-
-/* APP LINKS */
-
-const apps = {
-
-    MyChat:
-        "https://lazerman202.github.io/MyChat/",
-
-    BlockWeb:
-        "https://lazerman202.github.io/BlockWeb/",
-
-    MyGames:
-        "https://lazerman202.github.io/MyGames/",
-
-    MyFiles:
-        "https://lazerman202.github.io/MyFiles/"
-
-};
-
-
-/* OPEN APP */
-
-window.openApp = async function(name){
-
-    if(!apps[name]){
-
-        comingSoon();
-
-        return;
-
-    }
-
-
-    const user =
-        auth.currentUser;
-
-
-    if(user){
+window.logout =
+    async function(){
 
         try{
 
-            await push(
-                ref(
-                    db,
-                    "activity/"+user.uid
-                ),
-                {
-                    app:name,
-                    action:"Opened "+name,
-                    time:Date.now()
-                }
-            );
+            await signOut(auth);
+
+            window.location.reload();
 
         }
         catch(error){
@@ -1317,35 +1206,19 @@ window.openApp = async function(name){
 
         }
 
-    }
+    };
 
-
-    window.location.href =
-        apps[name];
-
-};
-
-
-/* COMING SOON */
-
-window.comingSoon = function(){
-
-    alert(
-        "This app is coming soon!"
-    );
-
-};
+}
 
 
 /* NAVIGATION */
 
-window.showSection =
-function(section,button){
+function showSection(section,button){
 
     document
         .querySelectorAll(".section")
-        .forEach(s=>{
-            s.classList.remove("active");
+        .forEach(item=>{
+            item.classList.remove("active");
         });
 
 
@@ -1356,8 +1229,8 @@ function(section,button){
 
     document
         .querySelectorAll(".nav button")
-        .forEach(b=>{
-            b.classList.remove("active");
+        .forEach(item=>{
+            item.classList.remove("active");
         });
 
 
@@ -1368,7 +1241,7 @@ function(section,button){
     }
 
 
-    if(window.innerWidth<=700){
+    if(window.innerWidth<=800){
 
         document
             .getElementById("sidebar")
@@ -1376,45 +1249,48 @@ function(section,button){
 
     }
 
-};
+
+    if(section==="activity"){
+
+        renderActivity();
+
+    }
+
+}
 
 
-/* SIDEBAR */
+/* MOBILE SIDEBAR */
 
-window.toggleSidebar =
-function(){
+function toggleSidebar(){
 
     document
         .getElementById("sidebar")
         .classList.toggle("open");
 
-};
+}
 
 
 /* DARK MODE */
 
-window.toggleDarkMode =
-function(){
+function toggleDarkMode(){
 
     document.body
         .classList.toggle("dark");
 
 
     localStorage.setItem(
-        "myworldDarkMode",
+        "myWorldDarkMode",
         document.body
             .classList
             .contains("dark")
     );
 
-};
+}
 
-
-/* LOAD DARK MODE */
 
 if(
     localStorage.getItem(
-        "myworldDarkMode"
+        "myWorldDarkMode"
     )==="true"
 ){
 
@@ -1427,102 +1303,255 @@ if(
 
 /* ACTIVITY */
 
-async function loadActivity(uid){
+function renderActivity(){
 
-    try{
+    const container =
+        document.getElementById(
+            "activityList"
+        );
 
-        const snapshot =
-            await get(
-                ref(
-                    db,
-                    "activity/"+uid
+
+    let activities =
+        JSON.parse(
+            localStorage.getItem(
+                "myWorldActivity"
+            ) || "[]"
+        );
+
+
+    const last =
+        localStorage.getItem(
+            "myworldLastActivity"
+        );
+
+
+    if(last){
+
+        try{
+
+            const parsed=
+                JSON.parse(last);
+
+            if(
+                !activities.some(
+                    item=>
+                        item.timestamp===
+                        parsed.timestamp
                 )
-            );
+            ){
 
+                activities.unshift(parsed);
 
-        const list =
-            document.getElementById(
-                "activityList"
-            );
-
-
-        if(!snapshot.exists()){
-
-            list.textContent =
-                "No activity yet.";
-
-            document.getElementById(
-                "activityCount"
-            ).textContent="0";
-
-            return;
+            }
 
         }
-
-
-        const data =
-            snapshot.val();
-
-
-        const entries =
-            Object
-                .values(data)
-                .reverse();
-
-
-        document.getElementById(
-            "activityCount"
-        ).textContent =
-            entries.length;
-
-
-        list.innerHTML="";
-
-
-        entries
-            .slice(0,10)
-            .forEach(item=>{
-
-                const div =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                div.style.padding =
-                    "10px 0";
-
-                div.style.borderBottom =
-                    "1px solid #ddd";
-
-
-                div.textContent =
-                    item.action ||
-                    "Activity";
-
-
-                list.appendChild(div);
-
-            });
+        catch(error){}
 
     }
-    catch(error){
 
-        console.log(error);
+
+    activities =
+        activities.slice(0,30);
+
+
+    document.getElementById(
+        "activityCount"
+    ).textContent=
+        activities.length;
+
+
+    if(!activities.length){
+
+        container.innerHTML=`
+
+            <div class="activity">
+
+                <strong>
+                    No activity yet
+                </strong>
+
+                <div class="activity-time">
+                    Your activity will appear here.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
 
     }
+
+
+    container.innerHTML=
+        activities
+            .map(item=>`
+
+                <div class="activity">
+
+                    <strong>
+                        ${escapeHtml(item.text)}
+                    </strong>
+
+                    <div class="activity-time">
+                        ${new Date(
+                            item.timestamp
+                        ).toLocaleString()}
+                    </div>
+
+                </div>
+
+            `)
+            .join("");
 
 }
 
 
-/* LOGOUT */
+/* SAVE LOCAL ACTIVITY */
 
-window.logout =
-async function(){
+function addActivity(text){
 
-    await signOut(auth);
+    let activities=
+        JSON.parse(
+            localStorage.getItem(
+                "myWorldActivity"
+            ) || "[]"
+        );
 
-};
+
+    activities.unshift({
+
+        text:text,
+
+        timestamp:Date.now()
+
+    });
+
+
+    activities=
+        activities.slice(0,30);
+
+
+    localStorage.setItem(
+        "myWorldActivity",
+        JSON.stringify(activities)
+    );
+
+
+    document.getElementById(
+        "activityCount"
+    ).textContent=
+        activities.length;
+
+}
+
+
+/* CLEAR ACTIVITY */
+
+function clearActivity(){
+
+    localStorage.removeItem(
+        "myWorldActivity"
+    );
+
+    localStorage.removeItem(
+        "myworldLastActivity"
+    );
+
+    renderActivity();
+
+    showToast(
+        "Activity cleared."
+    );
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHtml(text){
+
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* TOAST */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent=message;
+
+    toast.classList.add("show");
+
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },2500);
+
+}
+
+
+/* APP TRACKING */
+
+document
+    .querySelectorAll(
+        'a.app-button'
+    )
+    .forEach(link=>{
+
+        link.addEventListener(
+            "click",
+            ()=>{
+
+                const name =
+                    link
+                        .closest(".app-card")
+                        ?.querySelector("h3")
+                        ?.textContent;
+
+
+                if(name){
+
+                    addActivity(
+                        "Opened "+name
+                    );
+
+                    if(
+                        typeof window.logActivity===
+                        "function"
+                    ){
+
+                        window.logActivity(
+                            "Opened "+name
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* START */
+
+renderActivity();
 
 </script>
 
