@@ -32,7 +32,7 @@ body.dark{
     top:0;
     width:245px;
     height:100vh;
-    background:#ffffff;
+    background:#fff;
     border-right:1px solid #ddd;
     padding:20px;
     z-index:10;
@@ -47,10 +47,6 @@ body.dark{
     font-size:25px;
     font-weight:bold;
     margin-bottom:30px;
-}
-
-.logo span{
-    margin-right:7px;
 }
 
 .nav{
@@ -103,7 +99,7 @@ body.dark{
     display:none;
     border:none;
     background:#222;
-    color:white;
+    color:#fff;
     padding:10px 13px;
     border-radius:8px;
     cursor:pointer;
@@ -124,7 +120,7 @@ body.dark{
     height:40px;
     border-radius:50%;
     background:#4d7cff;
-    color:white;
+    color:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -133,7 +129,7 @@ body.dark{
 
 .hero{
     background:linear-gradient(135deg,#4d7cff,#7257e8);
-    color:white;
+    color:#fff;
     border-radius:18px;
     padding:35px;
     margin-bottom:25px;
@@ -163,7 +159,7 @@ body.dark{
 }
 
 .card{
-    background:white;
+    background:#fff;
     border-radius:15px;
     padding:22px;
     border:1px solid #ddd;
@@ -201,7 +197,7 @@ body.dark{
 .card button{
     border:none;
     background:#4d7cff;
-    color:white;
+    color:#fff;
     padding:10px 15px;
     border-radius:9px;
     cursor:pointer;
@@ -220,7 +216,7 @@ body.dark{
 }
 
 .stat{
-    background:white;
+    background:#fff;
     border:1px solid #ddd;
     padding:20px;
     border-radius:14px;
@@ -238,7 +234,7 @@ body.dark{
 }
 
 .setting{
-    background:white;
+    background:#fff;
     border:1px solid #ddd;
     padding:18px;
     border-radius:12px;
@@ -256,7 +252,7 @@ body.dark{
 .setting button{
     border:none;
     background:#4d7cff;
-    color:white;
+    color:#fff;
     padding:9px 14px;
     border-radius:8px;
     cursor:pointer;
@@ -274,7 +270,7 @@ body.dark{
 
 .login-box{
     width:min(400px,90%);
-    background:white;
+    background:#fff;
     padding:30px;
     border-radius:18px;
     box-shadow:0 10px 40px rgba(0,0,0,.12);
@@ -304,7 +300,7 @@ body.dark{
     border:none;
     border-radius:9px;
     background:#4d7cff;
-    color:white;
+    color:#fff;
     font-weight:bold;
     cursor:pointer;
     margin-top:5px;
@@ -327,6 +323,7 @@ body.dark{
 }
 
 @media(max-width:700px){
+
     .sidebar{
         transform:translateX(-100%);
         transition:.2s;
@@ -355,234 +352,640 @@ body.dark{
 <body>
 
 <!-- LOGIN -->
+
 <div class="login-screen" id="loginScreen">
+
     <div class="login-box">
+
         <h1>🌎 MyWorld</h1>
-        <p>Sign in to your MyWorld account.</p>
 
-        <input id="email" type="email" placeholder="Email">
-        <input id="password" type="password" placeholder="Password">
-        <input id="username" type="text" placeholder="Username (for new accounts)">
+        <p>
+            Sign in to your MyWorld account.
+        </p>
 
-        <button onclick="login()">Log In</button>
-        <button class="secondary" onclick="signup()">Create Account</button>
+        <input
+            id="email"
+            type="email"
+            placeholder="Email"
+        >
 
-        <div class="error" id="loginError"></div>
+        <input
+            id="password"
+            type="password"
+            placeholder="Password"
+        >
+
+        <input
+            id="username"
+            type="text"
+            placeholder="Username (for new accounts)"
+        >
+
+        <button onclick="login()">
+            Log In
+        </button>
+
+        <button
+            class="secondary"
+            onclick="signup()"
+        >
+            Create Account
+        </button>
+
+        <div
+            class="error"
+            id="loginError"
+        ></div>
+
     </div>
+
 </div>
 
+
 <!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
+
+<aside
+    class="sidebar"
+    id="sidebar"
+>
 
     <div class="logo">
         <span>🌎</span>MyWorld
     </div>
 
     <div class="nav">
-        <button class="active" onclick="showSection('home',this)">🏠 Home</button>
-        <button onclick="showSection('apps',this)">📱 My Apps</button>
-        <button onclick="showSection('activity',this)">📊 Activity</button>
-        <button onclick="showSection('profile',this)">👤 Profile</button>
-        <button onclick="showSection('settings',this)">⚙️ Settings</button>
+
+        <button
+            class="active"
+            onclick="showSection('home',this)"
+        >
+            🏠 Home
+        </button>
+
+        <button
+            onclick="showSection('apps',this)"
+        >
+            📱 My Apps
+        </button>
+
+        <button
+            onclick="showSection('activity',this)"
+        >
+            📊 Activity
+        </button>
+
+        <button
+            onclick="showSection('profile',this)"
+        >
+            👤 Profile
+        </button>
+
+        <button
+            onclick="showSection('settings',this)"
+        >
+            ⚙️ Settings
+        </button>
+
     </div>
 
     <div class="sidebar-bottom">
-        <button class="nav button" onclick="logout()">🚪 Log Out</button>
+
+        <button
+            class="nav button"
+            onclick="logout()"
+        >
+            🚪 Log Out
+        </button>
+
     </div>
 
 </aside>
 
+
 <!-- MAIN -->
+
 <main class="main">
 
     <div class="topbar">
-        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+        <button
+            class="menu-btn"
+            onclick="toggleSidebar()"
+        >
+            ☰
+        </button>
 
         <div></div>
 
         <div class="user-area">
-            <span id="topUsername">User</span>
-            <div class="avatar" id="topAvatar">U</div>
+
+            <span id="topUsername">
+                User
+            </span>
+
+            <div
+                class="avatar"
+                id="topAvatar"
+            >
+                U
+            </div>
+
         </div>
+
     </div>
 
+
     <!-- HOME -->
-    <section class="section active" id="home">
+
+    <section
+        class="section active"
+        id="home"
+    >
 
         <div class="hero">
-            <h1 id="welcomeText">Welcome to MyWorld!</h1>
-            <p>Your central hub for all of your apps and projects.</p>
+
+            <h1 id="welcomeText">
+                Welcome to MyWorld!
+            </h1>
+
+            <p>
+                Your central hub for all of your apps and projects.
+            </p>
+
         </div>
+
 
         <div class="stats">
-            <div class="stat">
-                <div class="stat-number">6</div>
-                <div>My Apps</div>
-            </div>
 
             <div class="stat">
-                <div class="stat-number" id="activityCount">0</div>
-                <div>Activities</div>
+
+                <div class="stat-number">
+                    6
+                </div>
+
+                <div>
+                    My Apps
+                </div>
+
             </div>
 
+
             <div class="stat">
-                <div class="stat-number">1</div>
-                <div>Account</div>
+
+                <div
+                    class="stat-number"
+                    id="activityCount"
+                >
+                    0
+                </div>
+
+                <div>
+                    Activities
+                </div>
+
             </div>
+
+
+            <div class="stat">
+
+                <div class="stat-number">
+                    1
+                </div>
+
+                <div>
+                    Account
+                </div>
+
+            </div>
+
         </div>
 
-        <h2 style="margin-bottom:15px;">Featured Apps</h2>
+
+        <h2 style="margin-bottom:15px;">
+            Featured Apps
+        </h2>
+
 
         <div class="cards">
 
             <div class="card">
-                <div class="card-icon">💬</div>
-                <h3>MyChat</h3>
-                <p>Chat with friends using rooms, DMs, groups and more.</p>
-                <button onclick="openApp('MyChat')">Open MyChat</button>
+
+                <div class="card-icon">
+                    💬
+                </div>
+
+                <h3>
+                    MyChat
+                </h3>
+
+                <p>
+                    Chat with friends using rooms, DMs, groups and more.
+                </p>
+
+                <button
+                    onclick="openApp('MyChat')"
+                >
+                    Open MyChat
+                </button>
+
             </div>
 
-            <div class="card">
-                <div class="card-icon">🧱</div>
-                <h3>BlockWeb</h3>
-                <p>A Minecraft-style browser world.</p>
-                <button onclick="openApp('BlockWeb')">Open BlockWeb</button>
-            </div>
 
             <div class="card">
-                <div class="card-icon">🎮</div>
-                <h3>MyGames</h3>
-                <p>Your collection of browser games.</p>
-                <button onclick="openApp('MyGames')">Open MyGames</button>
+
+                <div class="card-icon">
+                    🧱
+                </div>
+
+                <h3>
+                    BlockWeb
+                </h3>
+
+                <p>
+                    A Minecraft-style browser world.
+                </p>
+
+                <button
+                    onclick="openApp('BlockWeb')"
+                >
+                    Open BlockWeb
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🎮
+                </div>
+
+                <h3>
+                    MyGames
+                </h3>
+
+                <p>
+                    Your collection of browser games.
+                </p>
+
+                <button
+                    onclick="openApp('MyGames')"
+                >
+                    Open MyGames
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📁
+                </div>
+
+                <h3>
+                    MyFiles
+                </h3>
+
+                <p>
+                    Upload, download and manage your files.
+                </p>
+
+                <button
+                    onclick="openApp('MyFiles')"
+                >
+                    Open MyFiles
+                </button>
+
             </div>
 
         </div>
 
     </section>
+
 
     <!-- APPS -->
-    <section class="section" id="apps">
+
+    <section
+        class="section"
+        id="apps"
+    >
 
         <div class="hero">
-            <h1>📱 My Apps</h1>
-            <p>Everything you're building, all in one place.</p>
+
+            <h1>
+                📱 My Apps
+            </h1>
+
+            <p>
+                Everything you're building, all in one place.
+            </p>
+
         </div>
+
 
         <div class="cards">
 
             <div class="card">
-                <div class="card-icon">💬</div>
-                <h3>MyChat</h3>
-                <p>Your communication platform.</p>
-                <button onclick="openApp('MyChat')">Open</button>
+
+                <div class="card-icon">
+                    💬
+                </div>
+
+                <h3>
+                    MyChat
+                </h3>
+
+                <p>
+                    Your communication platform.
+                </p>
+
+                <button
+                    onclick="openApp('MyChat')"
+                >
+                    Open
+                </button>
+
             </div>
 
-            <div class="card">
-                <div class="card-icon">🧱</div>
-                <h3>BlockWeb</h3>
-                <p>Your browser Minecraft-style project.</p>
-                <button onclick="openApp('BlockWeb')">Open</button>
-            </div>
 
             <div class="card">
-                <div class="card-icon">🎮</div>
-                <h3>MyGames</h3>
-                <p>Your browser game library.</p>
-                <button onclick="openApp('MyGames')">Open</button>
+
+                <div class="card-icon">
+                    🧱
+                </div>
+
+                <h3>
+                    BlockWeb
+                </h3>
+
+                <p>
+                    Your browser Minecraft-style project.
+                </p>
+
+                <button
+                    onclick="openApp('BlockWeb')"
+                >
+                    Open
+                </button>
+
             </div>
 
-            <div class="card">
-                <div class="card-icon">📁</div>
-                <h3>MyFiles</h3>
-                <p>Your personal file system.</p>
-                <button onclick="comingSoon()">Coming Soon</button>
-            </div>
 
             <div class="card">
-                <div class="card-icon">📝</div>
-                <h3>MyNotes</h3>
-                <p>A place for your notes and ideas.</p>
-                <button onclick="comingSoon()">Coming Soon</button>
+
+                <div class="card-icon">
+                    🎮
+                </div>
+
+                <h3>
+                    MyGames
+                </h3>
+
+                <p>
+                    Your browser game library.
+                </p>
+
+                <button
+                    onclick="openApp('MyGames')"
+                >
+                    Open
+                </button>
+
             </div>
 
+
             <div class="card">
-                <div class="card-icon">💻</div>
-                <h3>MyCode</h3>
-                <p>Your coding workspace.</p>
-                <button onclick="comingSoon()">Coming Soon</button>
+
+                <div class="card-icon">
+                    📁
+                </div>
+
+                <h3>
+                    MyFiles
+                </h3>
+
+                <p>
+                    Your personal file system.
+                </p>
+
+                <button
+                    onclick="openApp('MyFiles')"
+                >
+                    Open
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📝
+                </div>
+
+                <h3>
+                    MyNotes
+                </h3>
+
+                <p>
+                    A place for your notes and ideas.
+                </p>
+
+                <button
+                    onclick="comingSoon()"
+                >
+                    Coming Soon
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💻
+                </div>
+
+                <h3>
+                    MyCode
+                </h3>
+
+                <p>
+                    Your coding workspace.
+                </p>
+
+                <button
+                    onclick="comingSoon()"
+                >
+                    Coming Soon
+                </button>
+
             </div>
 
         </div>
 
     </section>
+
 
     <!-- ACTIVITY -->
-    <section class="section" id="activity">
+
+    <section
+        class="section"
+        id="activity"
+    >
 
         <div class="hero">
-            <h1>📊 Activity</h1>
-            <p>Your recent MyWorld activity.</p>
+
+            <h1>
+                📊 Activity
+            </h1>
+
+            <p>
+                Your recent MyWorld activity.
+            </p>
+
         </div>
 
+
         <div class="card">
-            <h3>Recent Activity</h3>
-            <div id="activityList" style="margin-top:15px;">
+
+            <h3>
+                Recent Activity
+            </h3>
+
+            <div
+                id="activityList"
+                style="margin-top:15px;"
+            >
                 No activity yet.
             </div>
+
         </div>
 
     </section>
+
 
     <!-- PROFILE -->
-    <section class="section" id="profile">
+
+    <section
+        class="section"
+        id="profile"
+    >
 
         <div class="hero">
-            <h1>👤 Profile</h1>
-            <p>Your MyWorld account.</p>
+
+            <h1>
+                👤 Profile
+            </h1>
+
+            <p>
+                Your MyWorld account.
+            </p>
+
         </div>
 
+
         <div class="card">
-            <div class="card-icon">👤</div>
-            <h2 id="profileUsername">User</h2>
-            <p id="profileEmail">Email</p>
+
+            <div class="card-icon">
+                👤
+            </div>
+
+            <h2 id="profileUsername">
+                User
+            </h2>
+
+            <p id="profileEmail">
+                Email
+            </p>
+
         </div>
 
     </section>
 
+
     <!-- SETTINGS -->
-    <section class="section" id="settings">
+
+    <section
+        class="section"
+        id="settings"
+    >
 
         <div class="hero">
-            <h1>⚙️ Settings</h1>
-            <p>Customize your MyWorld experience.</p>
+
+            <h1>
+                ⚙️ Settings
+            </h1>
+
+            <p>
+                Customize your MyWorld experience.
+            </p>
+
         </div>
 
+
         <div class="setting">
+
             <div>
-                <strong>Dark Mode</strong>
-                <p style="margin-top:4px;color:#777;">Change the appearance of MyWorld.</p>
+
+                <strong>
+                    Dark Mode
+                </strong>
+
+                <p
+                    style="margin-top:4px;color:#777;"
+                >
+                    Change the appearance of MyWorld.
+                </p>
+
             </div>
 
-            <button onclick="toggleDarkMode()">Toggle</button>
+            <button
+                onclick="toggleDarkMode()"
+            >
+                Toggle
+            </button>
+
         </div>
 
+
         <div class="setting">
+
             <div>
-                <strong>Account</strong>
-                <p style="margin-top:4px;color:#777;">Sign out of your MyWorld account.</p>
+
+                <strong>
+                    Account
+                </strong>
+
+                <p
+                    style="margin-top:4px;color:#777;"
+                >
+                    Sign out of your MyWorld account.
+                </p>
+
             </div>
 
-            <button onclick="logout()">Log Out</button>
+            <button
+                onclick="logout()"
+            >
+                Log Out
+            </button>
+
         </div>
 
     </section>
 
 </main>
 
+
 <script type="module">
 
-import { initializeApp }
+import {
+    initializeApp
+}
 from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
 
 import {
     getAuth,
@@ -592,6 +995,7 @@ import {
     signOut
 }
 from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
 
 import {
     getDatabase,
@@ -606,35 +1010,76 @@ from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 /* FIREBASE */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDFun3M-6mzjBL8DFcAfmJzDv7blNODQd0",
-    authDomain: "mychat-8dac2.firebaseapp.com",
-    databaseURL: "https://mychat-8dac2-default-rtdb.firebaseio.com",
-    projectId: "mychat-8dac2",
-    storageBucket: "mychat-8dac2.firebasestorage.app",
-    messagingSenderId: "906137277444",
-    appId: "1:906137277444:web:b9d52ef4ec1f76afe09151"
+
+    apiKey:
+        "AIzaSyDFun3M-6mzjBL8DFcAfmJzDv7blNODQd0",
+
+    authDomain:
+        "mychat-8dac2.firebaseapp.com",
+
+    databaseURL:
+        "https://mychat-8dac2-default-rtdb.firebaseio.com",
+
+    projectId:
+        "mychat-8dac2",
+
+    storageBucket:
+        "mychat-8dac2.firebasestorage.app",
+
+    messagingSenderId:
+        "906137277444",
+
+    appId:
+        "1:906137277444:web:b9d52ef4ec1f76afe09151"
+
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getDatabase(app);
 
 
 /* LOGIN */
 
 window.login = async function(){
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+    const email =
+        document.getElementById("email")
+        .value
+        .trim();
+
+    const password =
+        document.getElementById("password")
+        .value;
 
     try{
-        await signInWithEmailAndPassword(auth,email,password);
-        document.getElementById("loginError").textContent="";
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        document.getElementById(
+            "loginError"
+        ).textContent="";
+
     }
     catch(error){
-        document.getElementById("loginError").textContent =
+
+        document.getElementById(
+            "loginError"
+        ).textContent =
             error.message;
+
     }
+
 };
 
 
@@ -642,15 +1087,32 @@ window.login = async function(){
 
 window.signup = async function(){
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const username = document.getElementById("username").value.trim();
+    const email =
+        document.getElementById("email")
+        .value
+        .trim();
+
+    const password =
+        document.getElementById("password")
+        .value;
+
+    const username =
+        document.getElementById("username")
+        .value
+        .trim();
+
 
     if(!username){
-        document.getElementById("loginError").textContent =
+
+        document.getElementById(
+            "loginError"
+        ).textContent =
             "Please enter a username.";
+
         return;
+
     }
+
 
     try{
 
@@ -661,8 +1123,12 @@ window.signup = async function(){
                 password
             );
 
+
         await set(
-            ref(db,"users/"+result.user.uid),
+            ref(
+                db,
+                "users/"+result.user.uid
+            ),
             {
                 username:username,
                 email:email,
@@ -670,79 +1136,125 @@ window.signup = async function(){
             }
         );
 
-        document.getElementById("loginError").textContent="";
+
+        document.getElementById(
+            "loginError"
+        ).textContent="";
 
     }
     catch(error){
 
-        document.getElementById("loginError").textContent =
+        document.getElementById(
+            "loginError"
+        ).textContent =
             error.message;
+
     }
+
 };
 
 
-/* AUTH STATE */
+/* AUTH */
 
-onAuthStateChanged(auth, async(user)=>{
+onAuthStateChanged(
+    auth,
+    async(user)=>{
 
-    if(user){
+        if(user){
 
-        document.getElementById("loginScreen")
-            .classList.add("hidden");
+            document.getElementById(
+                "loginScreen"
+            ).classList.add("hidden");
 
-        await loadUser(user);
+            await loadUser(user);
 
-    }else{
+        }
+        else{
 
-        document.getElementById("loginScreen")
-            .classList.remove("hidden");
+            document.getElementById(
+                "loginScreen"
+            ).classList.remove("hidden");
+
+        }
+
     }
-
-});
+);
 
 
 /* LOAD USER */
 
 async function loadUser(user){
 
-    let username = "User";
+    let username="User";
+
 
     try{
 
         const snapshot =
-            await get(ref(db,"users/"+user.uid));
+            await get(
+                ref(
+                    db,
+                    "users/"+user.uid
+                )
+            );
+
 
         if(snapshot.exists()){
 
-            const data = snapshot.val();
+            const data =
+                snapshot.val();
 
             if(data.username){
-                username = data.username;
+
+                username =
+                    data.username;
+
             }
+
         }
 
-    }catch(error){
+    }
+    catch(error){
 
         console.log(error);
 
     }
 
-    document.getElementById("topUsername").textContent =
+
+    document.getElementById(
+        "topUsername"
+    ).textContent =
         username;
 
-    document.getElementById("profileUsername").textContent =
+
+    document.getElementById(
+        "profileUsername"
+    ).textContent =
         username;
 
-    document.getElementById("profileEmail").textContent =
+
+    document.getElementById(
+        "profileEmail"
+    ).textContent =
         user.email;
 
-    document.getElementById("welcomeText").textContent =
+
+    document.getElementById(
+        "welcomeText"
+    ).textContent =
         "Welcome, "+username+"!";
 
-    document.getElementById("topAvatar").textContent =
-        username.charAt(0).toUpperCase();
+
+    document.getElementById(
+        "topAvatar"
+    ).textContent =
+        username
+        .charAt(0)
+        .toUpperCase();
+
 
     loadActivity(user.uid);
+
 }
 
 
@@ -757,7 +1269,10 @@ const apps = {
         "https://lazerman202.github.io/BlockWeb/",
 
     MyGames:
-        "https://lazerman202.github.io/MyGames/"
+        "https://lazerman202.github.io/MyGames/",
+
+    MyFiles:
+        "https://lazerman202.github.io/MyFiles/"
 
 };
 
@@ -767,18 +1282,27 @@ const apps = {
 window.openApp = async function(name){
 
     if(!apps[name]){
+
         comingSoon();
+
         return;
+
     }
 
-    const user = auth.currentUser;
+
+    const user =
+        auth.currentUser;
+
 
     if(user){
 
         try{
 
             await push(
-                ref(db,"activity/"+user.uid),
+                ref(
+                    db,
+                    "activity/"+user.uid
+                ),
                 {
                     app:name,
                     action:"Opened "+name,
@@ -786,7 +1310,8 @@ window.openApp = async function(name){
                 }
             );
 
-        }catch(error){
+        }
+        catch(error){
 
             console.log(error);
 
@@ -794,7 +1319,10 @@ window.openApp = async function(name){
 
     }
 
-    window.location.href = apps[name];
+
+    window.location.href =
+        apps[name];
+
 };
 
 
@@ -802,40 +1330,62 @@ window.openApp = async function(name){
 
 window.comingSoon = function(){
 
-    alert("This app is coming soon!");
+    alert(
+        "This app is coming soon!"
+    );
 
 };
 
 
 /* NAVIGATION */
 
-window.showSection = function(section,button){
+window.showSection =
+function(section,button){
 
-    document.querySelectorAll(".section")
-        .forEach(s=>s.classList.remove("active"));
+    document
+        .querySelectorAll(".section")
+        .forEach(s=>{
+            s.classList.remove("active");
+        });
 
-    document.getElementById(section)
+
+    document
+        .getElementById(section)
         .classList.add("active");
 
-    document.querySelectorAll(".nav button")
-        .forEach(b=>b.classList.remove("active"));
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(b=>{
+            b.classList.remove("active");
+        });
+
 
     if(button){
+
         button.classList.add("active");
+
     }
 
-    if(window.innerWidth <= 700){
-        document.getElementById("sidebar")
+
+    if(window.innerWidth<=700){
+
+        document
+            .getElementById("sidebar")
             .classList.remove("open");
+
     }
+
 };
 
 
 /* SIDEBAR */
 
-window.toggleSidebar = function(){
+window.toggleSidebar =
+function(){
 
-    document.getElementById("sidebar")
+    document
+        .getElementById("sidebar")
         .classList.toggle("open");
 
 };
@@ -843,13 +1393,18 @@ window.toggleSidebar = function(){
 
 /* DARK MODE */
 
-window.toggleDarkMode = function(){
+window.toggleDarkMode =
+function(){
 
-    document.body.classList.toggle("dark");
+    document.body
+        .classList.toggle("dark");
+
 
     localStorage.setItem(
         "myworldDarkMode",
-        document.body.classList.contains("dark")
+        document.body
+            .classList
+            .contains("dark")
     );
 
 };
@@ -857,8 +1412,16 @@ window.toggleDarkMode = function(){
 
 /* LOAD DARK MODE */
 
-if(localStorage.getItem("myworldDarkMode")==="true"){
-    document.body.classList.add("dark");
+if(
+    localStorage.getItem(
+        "myworldDarkMode"
+    )==="true"
+){
+
+    document.body
+        .classList
+        .add("dark");
+
 }
 
 
@@ -869,42 +1432,81 @@ async function loadActivity(uid){
     try{
 
         const snapshot =
-            await get(ref(db,"activity/"+uid));
+            await get(
+                ref(
+                    db,
+                    "activity/"+uid
+                )
+            );
+
 
         const list =
-            document.getElementById("activityList");
+            document.getElementById(
+                "activityList"
+            );
+
 
         if(!snapshot.exists()){
 
-            list.textContent="No activity yet.";
-            document.getElementById("activityCount").textContent="0";
+            list.textContent =
+                "No activity yet.";
+
+            document.getElementById(
+                "activityCount"
+            ).textContent="0";
+
             return;
 
         }
 
-        const data = snapshot.val();
-        const entries = Object.values(data).reverse();
 
-        document.getElementById("activityCount").textContent =
+        const data =
+            snapshot.val();
+
+
+        const entries =
+            Object
+                .values(data)
+                .reverse();
+
+
+        document.getElementById(
+            "activityCount"
+        ).textContent =
             entries.length;
+
 
         list.innerHTML="";
 
-        entries.slice(0,10).forEach(item=>{
 
-            const div=document.createElement("div");
+        entries
+            .slice(0,10)
+            .forEach(item=>{
 
-            div.style.padding="10px 0";
-            div.style.borderBottom="1px solid #ddd";
+                const div =
+                    document.createElement(
+                        "div"
+                    );
 
-            div.textContent =
-                item.action || "Activity";
 
-            list.appendChild(div);
+                div.style.padding =
+                    "10px 0";
 
-        });
+                div.style.borderBottom =
+                    "1px solid #ddd";
 
-    }catch(error){
+
+                div.textContent =
+                    item.action ||
+                    "Activity";
+
+
+                list.appendChild(div);
+
+            });
+
+    }
+    catch(error){
 
         console.log(error);
 
@@ -915,7 +1517,8 @@ async function loadActivity(uid){
 
 /* LOGOUT */
 
-window.logout = async function(){
+window.logout =
+async function(){
 
     await signOut(auth);
 
