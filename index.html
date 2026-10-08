@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MyWorld</title>
 
 <style>
@@ -60,7 +59,7 @@ body.dark{
     gap:8px;
 }
 
-.nav button{
+.nav-button{
     border:none;
     background:transparent;
     color:inherit;
@@ -69,15 +68,16 @@ body.dark{
     border-radius:10px;
     cursor:pointer;
     font-size:15px;
+    width:100%;
 }
 
-.nav button:hover,
-.nav button.active{
+.nav-button:hover,
+.nav-button.active{
     background:#e9edf2;
 }
 
-.dark .nav button:hover,
-.dark .nav button.active{
+.dark .nav-button:hover,
+.dark .nav-button.active{
     background:#30343a;
 }
 
@@ -86,10 +86,6 @@ body.dark{
     bottom:20px;
     left:20px;
     right:20px;
-}
-
-.sidebar-bottom button{
-    width:100%;
 }
 
 
@@ -199,7 +195,7 @@ body.dark{
 }
 
 
-/* APP GRID */
+/* APPS */
 
 .app-grid{
     display:grid;
@@ -352,6 +348,29 @@ body.dark{
 }
 
 
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#222;
+    color:#fff;
+    padding:13px 18px;
+    border-radius:10px;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(10px);
+    transition:.2s;
+    z-index:100;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
 /* MOBILE */
 
 @media(max-width:800px){
@@ -396,29 +415,6 @@ body.dark{
 
 }
 
-
-/* TOAST */
-
-.toast{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    background:#222;
-    color:#fff;
-    padding:13px 18px;
-    border-radius:10px;
-    opacity:0;
-    pointer-events:none;
-    transform:translateY(10px);
-    transition:.2s;
-    z-index:100;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
 </style>
 </head>
 
@@ -433,32 +429,48 @@ body.dark{
         🌎 MyWorld
     </div>
 
+
     <div class="nav">
 
         <button
-            class="active"
-            onclick="showSection('home',this)">
+            class="nav-button active"
+            data-section="home">
             🏠 Home
         </button>
 
         <button
-            onclick="showSection('apps',this)">
+            class="nav-button"
+            data-section="apps">
             📱 My Apps
         </button>
 
         <button
-            onclick="showSection('activity',this)">
+            class="nav-button"
+            data-section="activity">
             📊 Activity
         </button>
 
         <button
-            onclick="showSection('profile',this)">
+            class="nav-button"
+            data-section="profile">
             👤 Profile
         </button>
 
         <button
-            onclick="showSection('settings',this)">
+            class="nav-button"
+            data-section="settings">
             ⚙️ Settings
+        </button>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="nav-button"
+            onclick="goToApp('MyChat')">
+            💬 MyChat
         </button>
 
     </div>
@@ -489,7 +501,9 @@ body.dark{
                 Ian
             </span>
 
-            <div class="avatar">
+            <div
+                class="avatar"
+                id="topAvatar">
                 I
             </div>
 
@@ -511,8 +525,8 @@ body.dark{
             </h1>
 
             <p>
-                Your connected world of apps, games,
-                files, notes and more.
+                Your connected world of apps,
+                games, files, notes and code.
             </p>
 
         </div>
@@ -523,9 +537,8 @@ body.dark{
             <div class="stat">
 
                 <div
-                    class="stat-number"
-                    id="appCount">
-                    5
+                    class="stat-number">
+                    6
                 </div>
 
                 <div>
@@ -607,7 +620,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/MyChat/">
+                    href="https://lazerman202.github.io/MyChat/"
+                    onclick="recordActivity('Opened MyChat')">
                     Open MyChat
                 </a>
 
@@ -633,7 +647,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/BlockWeb/">
+                    href="https://lazerman202.github.io/BlockWeb/"
+                    onclick="recordActivity('Opened BlockWeb')">
                     Play BlockWeb
                 </a>
 
@@ -659,7 +674,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/MyGames/">
+                    href="https://lazerman202.github.io/MyGames/"
+                    onclick="recordActivity('Opened MyGames')">
                     Open MyGames
                 </a>
 
@@ -685,7 +701,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/MyFiles/">
+                    href="https://lazerman202.github.io/MyFiles/"
+                    onclick="recordActivity('Opened MyFiles')">
                     Open MyFiles
                 </a>
 
@@ -711,7 +728,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/MyNotes/">
+                    href="https://lazerman202.github.io/MyNotes/"
+                    onclick="recordActivity('Opened MyNotes')">
                     Open MyNotes
                 </a>
 
@@ -731,15 +749,16 @@ body.dark{
                 </h3>
 
                 <p>
-                    Your future place for creating
+                    Your workspace for creating
                     and managing code.
                 </p>
 
-                <button
-                    class="app-button disabled"
-                    disabled>
-                    Coming Soon
-                </button>
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyCode/"
+                    onclick="recordActivity('Opened MyCode')">
+                    Open MyCode
+                </a>
 
             </div>
 
@@ -772,9 +791,7 @@ body.dark{
 
             <div class="app-card">
 
-                <div class="app-icon">
-                    💬
-                </div>
+                <div class="app-icon">💬</div>
 
                 <h3>MyChat</h3>
 
@@ -784,7 +801,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/MyChat/">
+                    href="https://lazerman202.github.io/MyChat/"
+                    onclick="recordActivity('Opened MyChat')">
                     Open
                 </a>
 
@@ -793,9 +811,7 @@ body.dark{
 
             <div class="app-card">
 
-                <div class="app-icon">
-                    🧱
-                </div>
+                <div class="app-icon">🧱</div>
 
                 <h3>BlockWeb</h3>
 
@@ -805,7 +821,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/BlockWeb/">
+                    href="https://lazerman202.github.io/BlockWeb/"
+                    onclick="recordActivity('Opened BlockWeb')">
                     Open
                 </a>
 
@@ -814,9 +831,7 @@ body.dark{
 
             <div class="app-card">
 
-                <div class="app-icon">
-                    🎮
-                </div>
+                <div class="app-icon">🎮</div>
 
                 <h3>MyGames</h3>
 
@@ -826,7 +841,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/MyGames/">
+                    href="https://lazerman202.github.io/MyGames/"
+                    onclick="recordActivity('Opened MyGames')">
                     Open
                 </a>
 
@@ -835,9 +851,7 @@ body.dark{
 
             <div class="app-card">
 
-                <div class="app-icon">
-                    📁
-                </div>
+                <div class="app-icon">📁</div>
 
                 <h3>MyFiles</h3>
 
@@ -847,7 +861,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/MyFiles/">
+                    href="https://lazerman202.github.io/MyFiles/"
+                    onclick="recordActivity('Opened MyFiles')">
                     Open
                 </a>
 
@@ -856,9 +871,7 @@ body.dark{
 
             <div class="app-card">
 
-                <div class="app-icon">
-                    📝
-                </div>
+                <div class="app-icon">📝</div>
 
                 <h3>MyNotes</h3>
 
@@ -868,7 +881,8 @@ body.dark{
 
                 <a
                     class="app-button"
-                    href="https://lazerman202.github.io/MyNotes/">
+                    href="https://lazerman202.github.io/MyNotes/"
+                    onclick="recordActivity('Opened MyNotes')">
                     Open
                 </a>
 
@@ -877,21 +891,20 @@ body.dark{
 
             <div class="app-card">
 
-                <div class="app-icon">
-                    💻
-                </div>
+                <div class="app-icon">💻</div>
 
                 <h3>MyCode</h3>
 
                 <p>
-                    Code workspace.
+                    Your coding workspace.
                 </p>
 
-                <button
-                    class="app-button disabled"
-                    disabled>
-                    Coming Soon
-                </button>
+                <a
+                    class="app-button"
+                    href="https://lazerman202.github.io/MyCode/"
+                    onclick="recordActivity('Opened MyCode')">
+                    Open
+                </a>
 
             </div>
 
@@ -922,7 +935,6 @@ body.dark{
         <div
             class="activity-list"
             id="activityList">
-
         </div>
 
     </section>
@@ -949,15 +961,18 @@ body.dark{
 
         <div class="profile-card">
 
-            <div class="profile-avatar">
+            <div
+                class="profile-avatar"
+                id="profileAvatar">
                 I
             </div>
 
-            <h2>
+            <h2 id="profileName">
                 Ian
             </h2>
 
-            <p style="margin-top:8px;color:#777;">
+            <p
+                style="margin-top:8px;color:#777;">
                 MyWorld account
             </p>
 
@@ -1057,14 +1072,12 @@ import {
 
 import {
     getAuth,
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 import {
     getDatabase,
     ref,
-    set,
     push
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
@@ -1105,149 +1118,158 @@ const db =
     getDatabase(app);
 
 
-/* AUTH */
-
 onAuthStateChanged(
     auth,
     user=>{
 
-        if(user){
-
-            const name =
-                user.displayName ||
-                "Ian";
-
-            document.getElementById(
-                "topUser"
-            ).textContent=name;
-
-
-            document.getElementById(
-                "profileEmail"
-            ).textContent=
-                user.email || "";
-
-
-            document.querySelector(
-                ".profile-avatar"
-            ).textContent=
-                name.charAt(0).toUpperCase();
-
+        if(!user){
+            return;
         }
+
+
+        const name =
+            user.displayName ||
+            "Ian";
+
+
+        document.getElementById(
+            "topUser"
+        ).textContent=name;
+
+
+        document.getElementById(
+            "profileName"
+        ).textContent=name;
+
+
+        document.getElementById(
+            "profileEmail"
+        ).textContent=
+            user.email || "";
+
+
+        document.getElementById(
+            "topAvatar"
+        ).textContent=
+            name
+                .charAt(0)
+                .toUpperCase();
+
+
+        document.getElementById(
+            "profileAvatar"
+        ).textContent=
+            name
+                .charAt(0)
+                .toUpperCase();
 
     }
 );
 
 
-/* GLOBAL FUNCTIONS */
+/* FIREBASE ACTIVITY */
 
-window.logActivity =
+window.firebaseLogActivity =
     async function(text){
 
-        const user=auth.currentUser;
-
-        const activity={
-
-            text:text,
-
-            timestamp:Date.now()
-
-        };
+        const user =
+            auth.currentUser;
 
 
-        localStorage.setItem(
-            "myworldLastActivity",
-            JSON.stringify(activity)
-        );
-
-
-        if(user){
-
-            try{
-
-                await push(
-                    ref(
-                        db,
-                        "users/" +
-                        user.uid +
-                        "/activity"
-                    ),
-                    activity
-                );
-
-            }
-            catch(error){
-
-                console.log(
-                    "Activity sync failed:",
-                    error
-                );
-
-            }
-
+        if(!user){
+            return;
         }
 
-    };
-
-
-window.logout =
-    async function(){
 
         try{
 
-            await signOut(auth);
-
-            window.location.reload();
+            await push(
+                ref(
+                    db,
+                    "users/" +
+                    user.uid +
+                    "/activity"
+                ),
+                {
+                    text:text,
+                    timestamp:Date.now()
+                }
+            );
 
         }
         catch(error){
 
-            console.log(error);
+            console.log(
+                "Firebase activity error:",
+                error
+            );
 
         }
 
     };
 
-}
+</script>
 
 
-/* NAVIGATION */
+<script>
 
-function showSection(section,button){
-
-    document
-        .querySelectorAll(".section")
-        .forEach(item=>{
-            item.classList.remove("active");
-        });
+/*
+=========================================
+MYWORLD NAVIGATION
+=========================================
+*/
 
 
-    document
-        .getElementById(section)
-        .classList.add("active");
+function navigateTo(section){
+
+    const sections =
+        document.querySelectorAll(
+            ".section"
+        );
 
 
-    document
-        .querySelectorAll(".nav button")
-        .forEach(item=>{
-            item.classList.remove("active");
-        });
+    sections.forEach(
+        item=>{
+            item.classList.remove(
+                "active"
+            );
+        }
+    );
 
 
-    if(button){
+    const target =
+        document.getElementById(
+            section
+        );
 
-        button.classList.add("active");
 
+    if(!target){
+        return;
     }
 
 
-    if(window.innerWidth<=800){
+    target.classList.add(
+        "active"
+    );
 
-        document
-            .getElementById("sidebar")
-            .classList.remove("open");
 
-    }
+    const buttons =
+        document.querySelectorAll(
+            ".nav-button[data-section]"
+        );
+
+
+    buttons.forEach(
+        button=>{
+
+            button.classList.toggle(
+                "active",
+                button.dataset.section===
+                section
+            );
+
+        }
+    );
 
 
     if(section==="activity"){
@@ -1256,52 +1278,186 @@ function showSection(section,button){
 
     }
 
+
+    closeSidebar();
+
 }
 
 
-/* MOBILE SIDEBAR */
+/*
+=========================================
+SIDEBAR BUTTONS
+=========================================
+*/
+
+document
+    .querySelectorAll(
+        ".nav-button[data-section]"
+    )
+    .forEach(
+        button=>{
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    navigateTo(
+                        this.dataset.section
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/*
+=========================================
+MOBILE SIDEBAR
+=========================================
+*/
 
 function toggleSidebar(){
 
     document
-        .getElementById("sidebar")
-        .classList.toggle("open");
+        .getElementById(
+            "sidebar"
+        )
+        .classList.toggle(
+            "open"
+        );
 
 }
 
 
-/* DARK MODE */
+function closeSidebar(){
 
-function toggleDarkMode(){
+    if(
+        window.innerWidth<=800
+    ){
 
-    document.body
-        .classList.toggle("dark");
+        document
+            .getElementById(
+                "sidebar"
+            )
+            .classList.remove(
+                "open"
+            );
+
+    }
+
+}
+
+
+/*
+=========================================
+APP LINKS
+=========================================
+*/
+
+function goToApp(name){
+
+    const urls={
+
+        MyChat:
+            "https://lazerman202.github.io/MyChat/",
+
+        BlockWeb:
+            "https://lazerman202.github.io/BlockWeb/",
+
+        MyGames:
+            "https://lazerman202.github.io/MyGames/",
+
+        MyFiles:
+            "https://lazerman202.github.io/MyFiles/",
+
+        MyNotes:
+            "https://lazerman202.github.io/MyNotes/",
+
+        MyCode:
+            "https://lazerman202.github.io/MyCode/"
+
+    };
+
+
+    if(urls[name]){
+
+        recordActivity(
+            "Opened "+name
+        );
+
+
+        window.location.href=
+            urls[name];
+
+    }
+
+}
+
+
+/*
+=========================================
+ACTIVITY
+=========================================
+*/
+
+function recordActivity(text){
+
+    let activities =
+        JSON.parse(
+            localStorage.getItem(
+                "myWorldActivity"
+            ) || "[]"
+        );
+
+
+    activities.unshift({
+
+        text:text,
+
+        timestamp:Date.now()
+
+    });
+
+
+    activities =
+        activities.slice(
+            0,
+            50
+        );
 
 
     localStorage.setItem(
-        "myWorldDarkMode",
-        document.body
-            .classList
-            .contains("dark")
+        "myWorldActivity",
+        JSON.stringify(
+            activities
+        )
     );
 
+
+    updateActivityCount();
+
+
+    if(
+        typeof window.firebaseLogActivity===
+        "function"
+    ){
+
+        window.firebaseLogActivity(
+            text
+        );
+
+    }
+
 }
 
 
-if(
-    localStorage.getItem(
-        "myWorldDarkMode"
-    )==="true"
-){
-
-    document.body
-        .classList
-        .add("dark");
-
-}
-
-
-/* ACTIVITY */
+/*
+=========================================
+ACTIVITY DISPLAY
+=========================================
+*/
 
 function renderActivity(){
 
@@ -1319,45 +1475,7 @@ function renderActivity(){
         );
 
 
-    const last =
-        localStorage.getItem(
-            "myworldLastActivity"
-        );
-
-
-    if(last){
-
-        try{
-
-            const parsed=
-                JSON.parse(last);
-
-            if(
-                !activities.some(
-                    item=>
-                        item.timestamp===
-                        parsed.timestamp
-                )
-            ){
-
-                activities.unshift(parsed);
-
-            }
-
-        }
-        catch(error){}
-
-    }
-
-
-    activities =
-        activities.slice(0,30);
-
-
-    document.getElementById(
-        "activityCount"
-    ).textContent=
-        activities.length;
+    updateActivityCount();
 
 
     if(!activities.length){
@@ -1383,59 +1501,42 @@ function renderActivity(){
     }
 
 
-    container.innerHTML=
+    container.innerHTML =
         activities
-            .map(item=>`
+            .map(
+                item=>`
 
-                <div class="activity">
+                    <div class="activity">
 
-                    <strong>
-                        ${escapeHtml(item.text)}
-                    </strong>
+                        <strong>
+                            ${escapeHtml(
+                                item.text
+                            )}
+                        </strong>
 
-                    <div class="activity-time">
-                        ${new Date(
-                            item.timestamp
-                        ).toLocaleString()}
+                        <div class="activity-time">
+                            ${new Date(
+                                item.timestamp
+                            ).toLocaleString()}
+                        </div>
+
                     </div>
 
-                </div>
-
-            `)
+                `
+            )
             .join("");
 
 }
 
 
-/* SAVE LOCAL ACTIVITY */
+function updateActivityCount(){
 
-function addActivity(text){
-
-    let activities=
+    const activities =
         JSON.parse(
             localStorage.getItem(
                 "myWorldActivity"
             ) || "[]"
         );
-
-
-    activities.unshift({
-
-        text:text,
-
-        timestamp:Date.now()
-
-    });
-
-
-    activities=
-        activities.slice(0,30);
-
-
-    localStorage.setItem(
-        "myWorldActivity",
-        JSON.stringify(activities)
-    );
 
 
     document.getElementById(
@@ -1446,7 +1547,55 @@ function addActivity(text){
 }
 
 
-/* CLEAR ACTIVITY */
+/*
+=========================================
+DARK MODE
+=========================================
+*/
+
+function toggleDarkMode(){
+
+    document.body
+        .classList
+        .toggle(
+            "dark"
+        );
+
+
+    localStorage.setItem(
+        "myWorldDarkMode",
+        document.body
+            .classList
+            .contains(
+                "dark"
+            )
+        ? "true"
+        : "false"
+    );
+
+}
+
+
+if(
+    localStorage.getItem(
+        "myWorldDarkMode"
+    )==="true"
+){
+
+    document.body
+        .classList
+        .add(
+            "dark"
+        );
+
+}
+
+
+/*
+=========================================
+CLEAR ACTIVITY
+=========================================
+*/
 
 function clearActivity(){
 
@@ -1454,9 +1603,8 @@ function clearActivity(){
         "myWorldActivity"
     );
 
-    localStorage.removeItem(
-        "myworldLastActivity"
-    );
+
+    updateActivityCount();
 
     renderActivity();
 
@@ -1467,21 +1615,44 @@ function clearActivity(){
 }
 
 
-/* ESCAPE HTML */
+/*
+=========================================
+HTML ESCAPING
+=========================================
+*/
 
 function escapeHtml(text){
 
     return String(text)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
 
-/* TOAST */
+/*
+=========================================
+TOAST
+=========================================
+*/
 
 function showToast(message){
 
@@ -1491,65 +1662,34 @@ function showToast(message){
         );
 
 
-    toast.textContent=message;
+    toast.textContent=
+        message;
 
-    toast.classList.add("show");
+
+    toast.classList.add(
+        "show"
+    );
 
 
-    setTimeout(()=>{
-
-        toast.classList.remove("show");
-
-    },2500);
+    setTimeout(
+        ()=>{
+            toast.classList.remove(
+                "show"
+            );
+        },
+        2500
+    );
 
 }
 
 
-/* APP TRACKING */
+/*
+=========================================
+STARTUP
+=========================================
+*/
 
-document
-    .querySelectorAll(
-        'a.app-button'
-    )
-    .forEach(link=>{
-
-        link.addEventListener(
-            "click",
-            ()=>{
-
-                const name =
-                    link
-                        .closest(".app-card")
-                        ?.querySelector("h3")
-                        ?.textContent;
-
-
-                if(name){
-
-                    addActivity(
-                        "Opened "+name
-                    );
-
-                    if(
-                        typeof window.logActivity===
-                        "function"
-                    ){
-
-                        window.logActivity(
-                            "Opened "+name
-                        );
-
-                    }
-
-                }
-
-            }
-        );
-
-    });
-
-
-/* START */
+updateActivityCount();
 
 renderActivity();
 
