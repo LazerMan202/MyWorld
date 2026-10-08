@@ -1,0 +1,1551 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MyWorld</title>
+
+<style>
+:root {
+    --bg: #f4f6f9;
+    --panel: #ffffff;
+    --panel2: #f8f9fb;
+    --text: #18212b;
+    --muted: #6d7885;
+    --border: #e0e5eb;
+    --accent: #4d7cff;
+    --accent2: #6d5ce7;
+    --hover: #eef2ff;
+    --shadow: 0 8px 25px rgba(20, 30, 50, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.2s, color 0.2s;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 245px;
+
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+
+    padding: 22px 15px;
+
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: transform 0.25s;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 22px;
+    font-weight: 800;
+
+    margin: 3px 8px 30px;
+}
+
+.logoIcon {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        var(--accent),
+        var(--accent2)
+    );
+
+    color: white;
+    font-size: 21px;
+}
+
+.navTitle {
+    color: var(--muted);
+
+    font-size: 11px;
+    font-weight: bold;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    margin: 15px 10px 8px;
+}
+
+.navButton {
+    width: 100%;
+
+    border: none;
+    background: transparent;
+
+    color: var(--text);
+
+    padding: 11px 13px;
+
+    border-radius: 10px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    margin: 2px 0;
+
+    transition: 0.15s;
+}
+
+.navButton:hover {
+    background: var(--hover);
+    color: var(--accent);
+}
+
+.navButton.active {
+    background: var(--hover);
+    color: var(--accent);
+
+    font-weight: bold;
+}
+
+.profileMini {
+    margin-top: auto;
+
+    border-top: 1px solid var(--border);
+
+    padding: 15px 7px 0;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 39px;
+    height: 39px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #ffcf70,
+        #ff8b8b
+    );
+
+    color: white;
+    font-weight: bold;
+}
+
+.profileName {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.profileStatus {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    margin-left: 245px;
+
+    width: calc(100% - 245px);
+
+    padding: 30px;
+
+    max-width: 1500px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 28px;
+}
+
+.pageTitle {
+    margin: 0;
+
+    font-size: 30px;
+}
+
+.topActions {
+    display: flex;
+    gap: 9px;
+}
+
+.iconButton {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    background: var(--panel);
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    box-shadow: var(--shadow);
+
+    transition: 0.15s;
+}
+
+.iconButton:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================
+   PAGES
+========================= */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 190px;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    color: white;
+
+    background: linear-gradient(
+        120deg,
+        #4d7cff,
+        #6d5ce7
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 35px rgba(77, 124, 255, 0.2);
+}
+
+.hero h2 {
+    margin: 0 0 8px;
+
+    font-size: 28px;
+}
+
+.hero p {
+    margin: 0;
+
+    opacity: 0.9;
+
+    font-size: 15px;
+}
+
+.planet {
+    font-size: 85px;
+
+    opacity: 0.95;
+
+    transform: rotate(-8deg);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 30px 0 14px;
+}
+
+.sectionHeader h2 {
+    margin: 0;
+
+    font-size: 19px;
+}
+
+.sectionHeader span {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+/* =========================
+   APP CARDS
+========================= */
+
+.appsGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(210px, 1fr)
+        );
+
+    gap: 16px;
+}
+
+.appCard {
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    box-shadow: var(--shadow);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+}
+
+.appCard:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 13px 32px rgba(20, 30, 50, 0.12);
+}
+
+.appIcon {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--panel2);
+
+    font-size: 25px;
+
+    margin-bottom: 14px;
+}
+
+.appCard h3 {
+    margin: 0 0 6px;
+
+    font-size: 17px;
+}
+
+.appCard p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.45;
+}
+
+.openText {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    color: var(--accent);
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+/* =========================
+   ACTIVITY
+========================= */
+
+.activity {
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow);
+
+    overflow: hidden;
+}
+
+.activityRow {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px 18px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.activityRow:last-child {
+    border-bottom: none;
+}
+
+.activityDot {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    flex-shrink: 0;
+}
+
+.activityText {
+    font-size: 14px;
+}
+
+.activityTime {
+    margin-left: auto;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings {
+    max-width: 750px;
+}
+
+.setting {
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    margin-bottom: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    box-shadow: var(--shadow);
+}
+
+.setting h3 {
+    margin: 0 0 5px;
+
+    font-size: 16px;
+}
+
+.setting p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+/* =========================
+   TOGGLE
+========================= */
+
+.toggle {
+    width: 49px;
+    height: 28px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    padding: 3px;
+
+    background: #cbd1d9;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.toggle i {
+    display: block;
+
+    width: 22px;
+    height: 22px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: 0.2s;
+}
+
+.toggle.on {
+    background: var(--accent);
+}
+
+.toggle.on i {
+    transform: translateX(21px);
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profileCard {
+    max-width: 750px;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow: var(--shadow);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+.profileBigAvatar {
+    width: 75px;
+    height: 75px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #ffcf70,
+        #ff8b8b
+    );
+
+    color: white;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.profileCard h2 {
+    margin: 0 0 5px;
+}
+
+.profileCard p {
+    margin: 0;
+
+    color: var(--muted);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobileMenu {
+    display: none;
+}
+
+@media (max-width: 760px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main {
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 18px;
+    }
+
+    .mobileMenu {
+        display: inline-block;
+    }
+
+    .topbar {
+        margin-bottom: 20px;
+    }
+
+    .pageTitle {
+        font-size: 25px;
+    }
+
+    .hero {
+        padding: 23px;
+
+        min-height: 160px;
+    }
+
+    .hero h2 {
+        font-size: 23px;
+    }
+
+    .planet {
+        font-size: 60px;
+    }
+
+    .appsGrid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+
+    .appsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 20px;
+    }
+
+    .planet {
+        display: none;
+    }
+
+    .activityTime {
+        display: none;
+    }
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark {
+    --bg: #11161d;
+    --panel: #1a212a;
+    --panel2: #232b35;
+    --text: #edf1f6;
+    --muted: #9ba6b2;
+    --border: #2c3642;
+    --hover: #263249;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+        <div class="logoIcon">
+            🌎
+        </div>
+
+        MyWorld
+    </div>
+
+    <div class="navTitle">
+        Workspace
+    </div>
+
+    <button
+        class="navButton active"
+        data-page="home">
+
+        🏠 &nbsp; Home
+
+    </button>
+
+    <button
+        class="navButton"
+        data-page="apps">
+
+        🚀 &nbsp; My Apps
+
+    </button>
+
+    <button
+        class="navButton"
+        data-page="activity">
+
+        🕘 &nbsp; Activity
+
+    </button>
+
+    <div class="navTitle">
+        Account
+    </div>
+
+    <button
+        class="navButton"
+        data-page="profile">
+
+        👤 &nbsp; Profile
+
+    </button>
+
+    <button
+        class="navButton"
+        data-page="settings">
+
+        ⚙️ &nbsp; Settings
+
+    </button>
+
+    <div class="profileMini">
+
+        <div class="avatar">
+            I
+        </div>
+
+        <div>
+
+            <div class="profileName">
+                Ian
+            </div>
+
+            <div class="profileStatus">
+                MyWorld user
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <div
+            style="
+                display:flex;
+                align-items:center;
+                gap:12px;
+            "
+        >
+
+            <button
+                class="iconButton mobileMenu"
+                onclick="toggleSidebar()">
+
+                ☰
+
+            </button>
+
+            <h1
+                class="pageTitle"
+                id="pageTitle">
+
+                Home
+
+            </h1>
+
+        </div>
+
+        <div class="topActions">
+
+            <button
+                class="iconButton"
+                onclick="toggleDark()"
+                title="Toggle dark mode">
+
+                🌙
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         HOME
+    ========================= -->
+
+    <section
+        class="page active"
+        id="home">
+
+        <div class="hero">
+
+            <div>
+
+                <h2>
+                    Welcome to MyWorld 👋
+                </h2>
+
+                <p>
+                    Your personal home for all your web projects.
+                </p>
+
+            </div>
+
+            <div class="planet">
+                🌎
+            </div>
+
+        </div>
+
+
+        <div class="sectionHeader">
+
+            <h2>
+                Your Apps
+            </h2>
+
+            <span id="appCount">
+                6 apps
+            </span>
+
+        </div>
+
+
+        <div
+            class="appsGrid"
+            id="homeApps">
+        </div>
+
+
+        <div class="sectionHeader">
+
+            <h2>
+                Recent Activity
+            </h2>
+
+            <span>
+                Latest
+            </span>
+
+        </div>
+
+
+        <div
+            class="activity"
+            id="homeActivity">
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         APPS
+    ========================= -->
+
+    <section
+        class="page"
+        id="apps">
+
+        <div class="sectionHeader">
+
+            <h2>
+                My Apps
+            </h2>
+
+            <span>
+                Everything in one place
+            </span>
+
+        </div>
+
+        <div
+            class="appsGrid"
+            id="allApps">
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ACTIVITY
+    ========================= -->
+
+    <section
+        class="page"
+        id="activity">
+
+        <div class="sectionHeader">
+
+            <h2>
+                Activity
+            </h2>
+
+            <span>
+                Your recent actions
+            </span>
+
+        </div>
+
+        <div
+            class="activity"
+            id="allActivity">
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PROFILE
+    ========================= -->
+
+    <section
+        class="page"
+        id="profile">
+
+        <div class="sectionHeader">
+
+            <h2>
+                Profile
+            </h2>
+
+        </div>
+
+        <div class="profileCard">
+
+            <div class="profileBigAvatar">
+                I
+            </div>
+
+            <div>
+
+                <h2>
+                    Ian
+                </h2>
+
+                <p>
+                    MyWorld user
+                </p>
+
+                <p style="margin-top:8px">
+                    Projects: MyChat, BlockWeb
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SETTINGS
+    ========================= -->
+
+    <section
+        class="page"
+        id="settings">
+
+        <div class="sectionHeader">
+
+            <h2>
+                Settings
+            </h2>
+
+        </div>
+
+        <div class="settings">
+
+            <div class="setting">
+
+                <div>
+
+                    <h3>
+                        Dark Mode
+                    </h3>
+
+                    <p>
+                        Change the appearance of MyWorld.
+                    </p>
+
+                </div>
+
+                <button
+                    class="toggle"
+                    id="darkToggle"
+                    onclick="toggleDark()">
+
+                    <i></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="setting">
+
+                <div>
+
+                    <h3>
+                        Local Storage
+                    </h3>
+
+                    <p>
+                        MyWorld saves your preferences in this browser.
+                    </p>
+
+                </div>
+
+                <span>
+                    ✓
+                </span>
+
+            </div>
+
+
+            <div class="setting">
+
+                <div>
+
+                    <h3>
+                        Version
+                    </h3>
+
+                    <p>
+                        MyWorld 1.0
+                    </p>
+
+                </div>
+
+                <b>
+                    1.0
+                </b>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+/* =========================
+   MYWORLD APPS
+========================= */
+
+const apps = [
+
+    {
+        name: "MyChat",
+        icon: "💬",
+        description:
+            "Your communication platform.",
+
+        url:
+            "https://lazerman202.github.io/MyChat/"
+    },
+
+    {
+        name: "BlockWeb",
+        icon: "🧱",
+        description:
+            "Your browser-based Minecraft-style world.",
+
+        url:
+            "https://lazerman202.github.io/BlockWeb/"
+    },
+
+    {
+        name: "MyGames",
+        icon: "🎮",
+        description:
+            "Your personal game collection.",
+
+        url: "#"
+    },
+
+    {
+        name: "MyFiles",
+        icon: "📁",
+        description:
+            "Keep your files organized.",
+
+        url: "#"
+    },
+
+    {
+        name: "MyNotes",
+        icon: "📝",
+        description:
+            "Quick notes and ideas.",
+
+        url: "#"
+    },
+
+    {
+        name: "MyCode",
+        icon: "💻",
+        description:
+            "Build and experiment with web projects.",
+
+        url: "#"
+    }
+
+];
+
+
+/* =========================
+   ACTIVITY STORAGE
+========================= */
+
+let activity =
+    JSON.parse(
+        localStorage.getItem(
+            "myworldActivity"
+        )
+    ) || [
+
+        "Welcome to MyWorld",
+
+        "MyWorld dashboard created",
+
+        "Ready for your next project"
+
+    ];
+
+
+/* =========================
+   APP CARD
+========================= */
+
+function createAppCard(app) {
+
+    return `
+
+        <div
+            class="appCard"
+            onclick="openApp('${app.name}')">
+
+            <div class="appIcon">
+                ${app.icon}
+            </div>
+
+            <h3>
+                ${app.name}
+            </h3>
+
+            <p>
+                ${app.description}
+            </p>
+
+            <span class="openText">
+                Open →
+            </span>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================
+   RENDER EVERYTHING
+========================= */
+
+function render() {
+
+    document.getElementById(
+        "homeApps"
+    ).innerHTML =
+
+        apps
+            .slice(0, 4)
+            .map(createAppCard)
+            .join("");
+
+
+    document.getElementById(
+        "allApps"
+    ).innerHTML =
+
+        apps
+            .map(createAppCard)
+            .join("");
+
+
+    document.getElementById(
+        "appCount"
+    ).textContent =
+
+        apps.length + " apps";
+
+
+    renderActivity();
+
+}
+
+
+/* =========================
+   ACTIVITY
+========================= */
+
+function renderActivity() {
+
+    function createRow(
+        text,
+        index
+    ) {
+
+        return `
+
+            <div class="activityRow">
+
+                <div class="activityDot">
+                </div>
+
+                <div class="activityText">
+                    ${text}
+                </div>
+
+                <div class="activityTime">
+
+                    ${
+                        index === 0
+                            ? "Now"
+                            : index + "h ago"
+                    }
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    document.getElementById(
+        "homeActivity"
+    ).innerHTML =
+
+        activity
+            .slice(0, 3)
+            .map(createRow)
+            .join("");
+
+
+    document.getElementById(
+        "allActivity"
+    ).innerHTML =
+
+        activity
+            .map(createRow)
+            .join("");
+
+}
+
+
+/* =========================
+   OPEN APP
+========================= */
+
+function openApp(name) {
+
+    const app =
+        apps.find(
+            item =>
+                item.name === name
+        );
+
+
+    activity.unshift(
+        "Opened " + name
+    );
+
+
+    activity =
+        activity.slice(0, 20);
+
+
+    localStorage.setItem(
+        "myworldActivity",
+        JSON.stringify(activity)
+    );
+
+
+    render();
+
+
+    if (
+        app &&
+        app.url !== "#"
+    ) {
+
+        window.location.href =
+            app.url;
+
+    }
+
+    else {
+
+        alert(
+            name +
+            " is coming soon!"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showPage(page) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            element =>
+                element.classList.remove(
+                    "active"
+                )
+        );
+
+
+    const target =
+        document.getElementById(page);
+
+
+    if (target) {
+
+        target.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(".navButton")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+
+                button.dataset.page ===
+                page
+            );
+
+        });
+
+
+    const titles = {
+
+        home: "Home",
+
+        apps: "My Apps",
+
+        activity: "Activity",
+
+        profile: "Profile",
+
+        settings: "Settings"
+
+    };
+
+
+    document.getElementById(
+        "pageTitle"
+    ).textContent =
+
+        titles[page] ||
+        "MyWorld";
+
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("open");
+
+}
+
+
+/* =========================
+   NAV BUTTONS
+========================= */
+
+document
+    .querySelectorAll(".navButton")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                showPage(
+                    button.dataset.page
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleSidebar() {
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle(
+            "open"
+        );
+
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDark() {
+
+    document.body.classList.toggle(
+        "dark"
+    );
+
+
+    const enabled =
+        document.body.classList.contains(
+            "dark"
+        );
+
+
+    localStorage.setItem(
+        "myworldDark",
+        enabled
+    );
+
+
+    const toggle =
+        document.getElementById(
+            "darkToggle"
+        );
+
+
+    if (toggle) {
+
+        toggle.classList.toggle(
+            "on",
+            enabled
+        );
+
+    }
+
+}
+
+
+/* =========================
+   LOAD DARK MODE
+========================= */
+
+if (
+    localStorage.getItem(
+        "myworldDark"
+    ) === "true"
+) {
+
+    document.body.classList.add(
+        "dark"
+    );
+
+}
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+render();
+
+</script>
+
+</body>
+</html>
+```
